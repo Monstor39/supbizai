@@ -1628,7 +1628,7 @@
       }
 
       #contacts .contact-card {
-        padding: 25px 20px !important;
+        padding: 32px 20px !important;
       }
 
       #contacts .contact-icon {
@@ -1646,6 +1646,38 @@
       }
 
       #contacts .contact-action {
+        font-size: 12px !important;
+      }
+
+      /* Contact info block — 1 колонка на мобильном */
+      .contact-info-block {
+        grid-template-columns: 1fr !important;
+        gap: 24px !important;
+        padding: 32px 20px !important;
+      }
+
+      /* Contact card иконки — меньше на мобильном */
+      .contact-card>div:first-child {
+        width: 56px !important;
+        height: 56px !important;
+        margin: 0 auto 16px !important;
+      }
+
+      .contact-card>div:first-child svg {
+        width: 28px !important;
+        height: 28px !important;
+      }
+
+      /* Contact card заголовки */
+      .contact-card>div:nth-child(2) {
+        font-size: 14px !important;
+      }
+
+      .contact-card>div:nth-child(3) {
+        font-size: 16px !important;
+      }
+
+      .contact-card>div:last-child {
         font-size: 12px !important;
       }
 
@@ -3612,8 +3644,18 @@
     background: var(--bg-secondary);
     padding: var(--section-padding) 0;
     border-top: 1px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
   ">
-    <div class="container">
+    <!-- Фоновые эффекты -->
+    <div
+      style="position: absolute; top: -20%; right: -10%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(0,255,136,0.05) 0%, transparent 70%); filter: blur(60px); pointer-events: none;">
+    </div>
+    <div
+      style="position: absolute; bottom: -20%; left: -10%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(124,58,237,0.05) 0%, transparent 70%); filter: blur(60px); pointer-events: none;">
+    </div>
+
+    <div class="container" style="position: relative; z-index: 1;">
       <!-- Section Header -->
       <div class="section-header" style="text-align: center; margin-bottom: 60px;">
         <span class="section-label" style="
@@ -3646,103 +3688,198 @@
       <div style="
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 32px;
-        max-width: 900px;
-        margin: 0 auto;
-      ">
+        gap: 24px;
+        max-width: 1000px;
+        margin: 0 auto 60px;
+      " class="contacts-grid">
+
         <!-- Telegram -->
-        <a href="https://t.me/GolodBizAi" target="_blank" style="
-          background: var(--bg-tertiary);
-          border: 1px solid var(--border-color);
-          border-radius: 20px;
-          padding: 40px 32px;
+        <a href="https://t.me/GolodBizAi" target="_blank" class="contact-card" style="
+          background: linear-gradient(135deg, rgba(41,168,224,0.08), rgba(41,168,224,0.02));
+          border: 1px solid rgba(41,168,224,0.2);
+          border-radius: 24px;
+          padding: 40px 28px;
           text-align: center;
           text-decoration: none;
-          transition: all 0.3s ease;
-        " onmouseover="this.style.borderColor='rgba(41,168,224,0.5)'; this.style.transform='translateY(-4px)'; this.style.boxShadow='0 10px 40px rgba(41,168,224,0.15)'"
-          onmouseout="this.style.borderColor='var(--border-color)'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          position: relative;
+          overflow: hidden;
+        " onmouseover="
+          this.style.borderColor='rgba(41,168,224,0.5)';
+          this.style.transform='translateY(-8px)';
+          this.style.boxShadow='0 20px 60px rgba(41,168,224,0.2), 0 0 40px rgba(41,168,224,0.1)';
+        " onmouseout="
+          this.style.borderColor='rgba(41,168,224,0.2)';
+          this.style.transform='translateY(0)';
+          this.style.boxShadow='none';
+        ">
           <div style="
-            width: 64px;
-            height: 64px;
-            background: rgba(41,168,224,0.1);
-            border-radius: 16px;
+            width: 72px;
+            height: 72px;
+            background: linear-gradient(135deg, rgba(41,168,224,0.15), rgba(41,168,224,0.05));
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 20px;
+            transition: all 0.3s ease;
           ">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" style="color: #29A8E0;">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor" style="color: #29A8E0;">
               <path
                 d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-2.04 9.613c-.15.678-.546.843-1.106.524l-3.062-2.256-1.478 1.422c-.163.163-.3.3-.616.3l.22-3.11 5.665-5.116c.246-.22-.054-.342-.382-.122L7.26 14.663l-2.99-.934c-.65-.203-.663-.65.136-.962l11.67-4.5c.54-.196 1.013.132.836.98l-.35.001z" />
             </svg>
           </div>
-          <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 8px;">Telegram</div>
-          <div style="font-size: 16px; font-weight: 600; color: var(--text-primary);">@GolodBizAi</div>
-          <div style="font-size: 13px; color: var(--text-secondary); margin-top: 8px;">Написать нам</div>
+          <div style="font-size: 15px; color: var(--text-muted); margin-bottom: 10px; font-weight: 500;">Telegram</div>
+          <div style="font-size: 18px; font-weight: 700; color: #29A8E0; margin-bottom: 8px;">@GolodBizAi</div>
+          <div style="font-size: 13px; color: var(--text-secondary);">Написать в Telegram →</div>
         </a>
 
         <!-- Phone -->
-        <a href="tel:+79097937492" style="
-          background: var(--bg-tertiary);
-          border: 1px solid var(--border-color);
-          border-radius: 20px;
-          padding: 40px 32px;
+        <a href="tel:+79097937492" class="contact-card" style="
+          background: linear-gradient(135deg, rgba(139,92,246,0.08), rgba(139,92,246,0.02));
+          border: 1px solid rgba(139,92,246,0.2);
+          border-radius: 24px;
+          padding: 40px 28px;
           text-align: center;
           text-decoration: none;
-          transition: all 0.3s ease;
-        " onmouseover="this.style.borderColor='rgba(139,92,246,0.5)'; this.style.transform='translateY(-4px)'; this.style.boxShadow='0 10px 40px rgba(139,92,246,0.15)'"
-          onmouseout="this.style.borderColor='var(--border-color)'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          position: relative;
+          overflow: hidden;
+        " onmouseover="
+          this.style.borderColor='rgba(139,92,246,0.5)';
+          this.style.transform='translateY(-8px)';
+          this.style.boxShadow='0 20px 60px rgba(139,92,246,0.2), 0 0 40px rgba(139,92,246,0.1)';
+        " onmouseout="
+          this.style.borderColor='rgba(139,92,246,0.2)';
+          this.style.transform='translateY(0)';
+          this.style.boxShadow='none';
+        ">
           <div style="
-            width: 64px;
-            height: 64px;
-            background: rgba(139,92,246,0.1);
-            border-radius: 16px;
+            width: 72px;
+            height: 72px;
+            background: linear-gradient(135deg, rgba(139,92,246,0.15), rgba(139,92,246,0.05));
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 20px;
+            transition: all 0.3s ease;
           ">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
               stroke-linecap="round" stroke-linejoin="round" style="color: #8B5CF6;">
               <path
                 d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
             </svg>
           </div>
-          <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 8px;">Телефон</div>
-          <div style="font-size: 16px; font-weight: 600; color: var(--text-primary);">+7 (909) 793-74-92</div>
-          <div style="font-size: 13px; color: var(--text-secondary); margin-top: 8px;">Позвонить нам</div>
+          <div style="font-size: 15px; color: var(--text-muted); margin-bottom: 10px; font-weight: 500;">Телефон</div>
+          <div style="font-size: 18px; font-weight: 700; color: #8B5CF6; margin-bottom: 8px;">+7 (909) 793-74-92</div>
+          <div style="font-size: 13px; color: var(--text-secondary);">Позвонить нам →</div>
         </a>
 
         <!-- Email -->
-        <div style="
-          background: var(--bg-tertiary);
-          border: 1px solid var(--border-color);
-          border-radius: 20px;
-          padding: 40px 32px;
+        <a href="mailto:golodbizai@gmail.com" class="contact-card" style="
+          background: linear-gradient(135deg, rgba(234,67,53,0.08), rgba(234,67,53,0.02));
+          border: 1px solid rgba(234,67,53,0.2);
+          border-radius: 24px;
+          padding: 40px 28px;
           text-align: center;
+          text-decoration: none;
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          position: relative;
+          overflow: hidden;
+        " onmouseover="
+          this.style.borderColor='rgba(234,67,53,0.5)';
+          this.style.transform='translateY(-8px)';
+          this.style.boxShadow='0 20px 60px rgba(234,67,53,0.2), 0 0 40px rgba(234,67,53,0.1)';
+        " onmouseout="
+          this.style.borderColor='rgba(234,67,53,0.2)';
+          this.style.transform='translateY(0)';
+          this.style.boxShadow='none';
         ">
           <div style="
-            width: 64px;
-            height: 64px;
-            background: rgba(234,67,53,0.1);
-            border-radius: 16px;
+            width: 72px;
+            height: 72px;
+            background: linear-gradient(135deg, rgba(234,67,53,0.15), rgba(234,67,53,0.05));
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 20px;
+            transition: all 0.3s ease;
           ">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
               stroke-linecap="round" stroke-linejoin="round" style="color: #EA4335;">
               <rect width="20" height="16" x="2" y="4" rx="2" />
               <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
             </svg>
           </div>
-          <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 8px;">Email</div>
+          <div style="font-size: 15px; color: var(--text-muted); margin-bottom: 10px; font-weight: 500;">Email</div>
           <div
-            style="font-size: 14px; font-weight: 600; color: var(--text-primary); word-break: break-word; line-height: 1.4;">
+            style="font-size: 15px; font-weight: 700; color: #EA4335; margin-bottom: 8px; word-break: break-word; line-height: 1.5;">
             golodbizai@gmail.com</div>
-          <div style="font-size: 13px; color: var(--text-secondary); margin-top: 8px;">Написать письмо</div>
+          <div style="font-size: 13px; color: var(--text-secondary);">Написать письмо →</div>
+        </a>
+
+      </div>
+
+      <!-- Working Hours & Response Time -->
+      <div style="
+        background: linear-gradient(135deg, rgba(0,255,136,0.05), rgba(124,58,237,0.05));
+        border: 1px solid rgba(0,255,136,0.15);
+        border-radius: 24px;
+        padding: 40px;
+        max-width: 800px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 32px;
+      " class="contact-info-block">
+
+        <div style="text-align: center;">
+          <div style="
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, rgba(0,255,136,0.15), rgba(0,255,136,0.05));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+          ">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" style="color: #00FF88;">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+          </div>
+          <div style="font-size: 15px; color: var(--text-muted); margin-bottom: 8px; font-weight: 500;">Время работы
+          </div>
+          <div style="font-size: 17px; font-weight: 600; color: var(--text-primary);">Пн-Вс: 9:00 - 21:00</div>
+          <div style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">Работаем без выходных</div>
         </div>
+
+        <div style="text-align: center;">
+          <div style="
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(124,58,237,0.05));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+          ">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" style="color: #8B5CF6;">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+            </svg>
+          </div>
+          <div style="font-size: 15px; color: var(--text-muted); margin-bottom: 8px; font-weight: 500;">Время ответа
+          </div>
+          <div style="font-size: 17px; font-weight: 600; color: var(--text-primary);">До 15 минут</div>
+          <div style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">Отвечаем быстро</div>
+        </div>
+
       </div>
 
       <!-- Additional Info -->
