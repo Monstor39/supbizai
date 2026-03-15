@@ -1372,6 +1372,13 @@
         padding: 24px 16px !important;
       }
 
+      /* Contact email — перенос слов и уменьшенный шрифт */
+      #contacts div[style*="golodbizai@gmail"] {
+        word-break: break-word !important;
+        font-size: 13px !important;
+        line-height: 1.4 !important;
+      }
+
       /* Calculator — 1 колонка */
       .calc-grid {
         grid-template-columns: 1fr !important;
@@ -3663,7 +3670,9 @@
             </svg>
           </div>
           <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 8px;">Email</div>
-          <div style="font-size: 16px; font-weight: 600; color: var(--text-primary);">golodbizai@gmail.com</div>
+          <div
+            style="font-size: 14px; font-weight: 600; color: var(--text-primary); word-break: break-word; line-height: 1.4;">
+            golodbizai@gmail.com</div>
           <div style="font-size: 13px; color: var(--text-secondary); margin-top: 8px;">Написать письмо</div>
         </div>
       </div>
