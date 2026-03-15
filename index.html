@@ -1287,17 +1287,119 @@
     }
 
     /* ============================================
+       ДОП. МОБИЛЬНЫЕ ИСПРАВЛЕНИЯ
+       ============================================ */
+    @media (max-width: 768px) {
+
+      /* Services — 2 колонки на планшете */
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+
+      /* Platforms — 2 колонки на планшете */
+      .platforms-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+
+      /* About grid — 1 колонка */
+      .about-grid {
+        grid-template-columns: 1fr !important;
+        gap: 40px !important;
+      }
+
+      /* About stats — 2 колонки */
+      .about-stats-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+
+      /* What we do grid — 1 колонка */
+      .what-we-do-grid {
+        grid-template-columns: 1fr !important;
+      }
+
+      /* Footer content — колонка */
+      .footer-content {
+        flex-direction: column !important;
+        text-align: center !important;
+        gap: 30px !important;
+      }
+
+      /* Footer links — центрирование */
+      .footer-links {
+        justify-content: center !important;
+        gap: 16px !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+
+      /* Services — 1 колонка на мобильном */
+      .services-grid {
+        grid-template-columns: 1fr !important;
+      }
+
+      /* Platforms — 1 колонка на мобильном */
+      .platforms-grid {
+        grid-template-columns: 1fr !important;
+      }
+
+      /* About stats — 2 колонки на очень маленьких */
+      .about-stats-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px !important;
+      }
+
+      .stat-card {
+        padding: 16px !important;
+      }
+
+      .stat-number {
+        font-size: 28px !important;
+      }
+
+      .stat-label {
+        font-size: 12px !important;
+      }
+
+      /* Contacts grid — 1 колонка */
+      #contacts>div>div:last-child {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+      }
+
+      /* Contact cards — padding меньше */
+      #contacts .platform-card {
+        padding: 24px 16px !important;
+      }
+
+      /* Calculator — 1 колонка */
+      .calc-grid {
+        grid-template-columns: 1fr !important;
+      }
+
+      /* Benefits grid — 1 колонка */
+      .benefits-grid {
+        grid-template-columns: 1fr !important;
+      }
+    }
+
+    /* ============================================
        МОБИЛЬНАЯ ВЕРСИЯ — ИСПРАВЛЕНИЯ (до 480px)
        ============================================ */
     @media (max-width: 480px) {
 
       /* Логотип в навбаре */
       .nav-logo {
-        font-size: 1.1rem !important;
+        font-size: 1rem !important;
+        gap: 6px !important;
       }
 
       .nav-logo img {
-        height: 64px !important;
+        height: 48px !important;
+      }
+
+      .nav-logo span {
+        font-size: 1.2rem !important;
       }
 
       /* Hero секция */
