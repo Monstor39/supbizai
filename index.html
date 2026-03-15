@@ -1,0 +1,3588 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SupBizAI — Ваш бизнес работает пока вы спите</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="SupBizAI — автоматизируем бизнес-процессы с помощью AI. Боты, интеграции, разработка, лидогенерация и аналитика под ключ. Бесплатный аудит процессов.">
+  <meta name="keywords" content="автоматизация бизнеса, n8n, автоматизация процессов, AI автоматизация, no-code, бот для бизнеса, автоматизация telegram, CRM автоматизация, чат-боты, интеграции API, SupBizAI">
+  <meta name="author" content="SupBizAI">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph (для превью в Telegram/соцсетях) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="SupBizAI — Ваш бизнес работает пока вы спите">
+  <meta property="og:description" content="Автоматизируем процессы которые съедают время и деньги. Бесплатный аудит.">
+  <meta property="og:image" content="https://supbizai.ru/logo.png">
+  <meta property="og:url" content="https://supbizai.ru">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="SupBizAI">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SupBizAI — Автоматизация бизнеса">
+  <meta name="twitter:description" content="Бесплатный аудит процессов. Экономия до 85% затрат на рутину.">
+  <meta name="twitter:image" content="https://supbizai.ru/og-image.png">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://supbizai.ru">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="apple-touch-icon" href="logo.png">
+
+  <!-- Google Fonts (с резервными системными шрифтами) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Резервные шрифты если CDN недоступен -->
+  <style>
+    @font-face {
+      font-family: 'Inter';
+      src: local('Inter'), local('Arial'), local('Helvetica');
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Space Grotesk';
+      src: local('Space Grotesk'), local('Arial'), local('Helvetica');
+      font-display: swap;
+    }
+  </style>
+
+  <!-- Lucide Icons (с CDN и локальным fallback) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <style>
+    /* ============================================
+       CSS VARIABLES & RESET
+       ============================================ */
+    :root {
+      /* Colors */
+      --bg-primary: #0A0A0F;
+      --bg-secondary: #0F0F16;
+      --bg-tertiary: #181820;
+      --accent-purple: #7C3AED;
+      --accent-purple-light: #8B5CF6;
+      --accent-green: #10B981;
+      --accent-blue: #3B82F6;
+      --neon-green: #00FF88;
+      --neon-green-dim: rgba(0,255,136,0.6);
+      --neon-green-glow: rgba(0,255,136,0.15);
+      --neon-green-border: rgba(0,255,136,0.3);
+      --text-primary: #FFFFFF;
+      --text-secondary: #A1A1AA;
+      --text-muted: #71717A;
+      --border-color: #272730;
+      
+      /* Typography */
+      --font-heading: 'Space Grotesk', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      
+      /* Spacing */
+      --section-padding: 120px;
+      --container-max: 1200px;
+      
+      /* Transitions */
+      --transition-fast: 0.2s ease;
+      --transition-medium: 0.3s ease;
+      --transition-slow: 0.5s ease;
+    }
+    
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      line-height: 1.2;
+    }
+    
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: color var(--transition-fast);
+    }
+    
+    button {
+      font-family: var(--font-body);
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+    
+    img {
+      max-width: 100%;
+      display: block;
+    }
+    
+    .container {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    
+    section {
+      padding: var(--section-padding) 0;
+    }
+    
+    /* ============================================
+       ANIMATIONS
+       ============================================ */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    
+    .animate-on-scroll.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* ============================================
+       NAVIGATION
+       ============================================ */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 20px 0;
+      transition: background-color var(--transition-medium), padding var(--transition-medium);
+    }
+    
+    .nav.scrolled {
+      background-color: rgba(10, 10, 15, 0.9);
+      backdrop-filter: blur(10px);
+      padding: 12px 0;
+    }
+    
+    .nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      font-family: var(--font-heading);
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      letter-spacing: -0.5px;
+    }
+
+    @media (max-width: 640px) {
+      .nav-logo {
+        font-size: 1.3rem;
+      }
+    }
+
+    .nav-logo svg {
+      color: var(--accent-purple);
+    }
+    
+    .nav-menu {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    
+    .nav-link {
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 500;
+      transition: color var(--transition-fast);
+    }
+    
+    .nav-link:hover {
+      color: var(--text-primary);
+    }
+    
+    .nav-cta {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-purple-light));
+      color: var(--text-primary);
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    }
+    
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
+    }
+    
+    .nav-burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+    
+    .nav-burger span {
+      width: 24px;
+      height: 2px;
+      background: var(--text-primary);
+      transition: var(--transition-fast);
+    }
+    
+    /* ============================================
+       HERO SECTION
+       ============================================ */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding-top: 80px;
+    }
+    
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(124, 58, 237, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(124, 58, 237, 0.1) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.3;
+    }
+    
+    .hero-gradient-1 {
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(124, 58, 237, 0.3) 0%, transparent 70%);
+      filter: blur(60px);
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    .hero-gradient-2 {
+      position: absolute;
+      bottom: -20%;
+      left: -10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 70%);
+      filter: blur(60px);
+      animation: float 8s ease-in-out infinite reverse;
+    }
+    
+    .hero-particles {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+    
+    .hero-particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: var(--accent-purple);
+      border-radius: 50%;
+      opacity: 0.5;
+      animation: float 4s ease-in-out infinite;
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(124, 58, 237, 0.15);
+      border: 1px solid rgba(124, 58, 237, 0.3);
+      padding: 8px 16px;
+      border-radius: 100px;
+      font-size: 13px;
+      color: var(--accent-purple-light);
+      margin-bottom: 24px;
+      animation: fadeInUp 0.6s ease;
+    }
+    
+    .hero-badge svg {
+      width: 16px;
+      height: 16px;
+    }
+    
+    .hero-title {
+      font-size: clamp(40px, 6vw, 72px);
+      font-weight: 700;
+      margin-bottom: 20px;
+      animation: fadeInUp 0.6s ease 0.1s backwards;
+    }
+    
+    .hero-title span {
+      background: linear-gradient(135deg, var(--accent-purple-light), var(--accent-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .hero-subtitle {
+      font-size: clamp(18px, 2vw, 22px);
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto 40px;
+      animation: fadeInUp 0.6s ease 0.2s backwards;
+    }
+    
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeInUp 0.6s ease 0.3s backwards;
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      transition: all var(--transition-fast);
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, var(--neon-green), #00CC6A);
+      color: #0A0A0F;
+      font-weight: 700;
+      box-shadow: 0 0 20px rgba(0,255,136,0.4), 0 4px 15px rgba(0,255,136,0.2);
+      border: none;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 30px rgba(0,255,136,0.6), 0 6px 20px rgba(0,255,136,0.3);
+    }
+    
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+    }
+    
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--text-secondary);
+    }
+    
+    .btn svg {
+      width: 20px;
+      height: 20px;
+    }
+    
+    /* ============================================
+       PAIN POINTS SECTION
+       ============================================ */
+    .pain-points {
+      background: var(--bg-secondary);
+    }
+    
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    
+    .section-label {
+      display: inline-block;
+      font-size: 13px;
+      color: var(--neon-green);
+      background: rgba(0,255,136,0.1);
+      border: 1px solid rgba(0,255,136,0.3);
+      padding: 0.35rem 1rem;
+      border-radius: 50px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    
+    .section-title {
+      font-size: clamp(32px, 4vw, 48px);
+      margin-bottom: 16px;
+    }
+    
+    .section-subtitle {
+      font-size: 18px;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .pain-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    
+    .pain-card {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 32px;
+      cursor: pointer;
+      transition: all var(--transition-medium);
+      perspective: 1000px;
+    }
+    
+    .pain-card:hover {
+      border-color: var(--accent-purple);
+      transform: translateY(-4px);
+    }
+    
+    .pain-card-inner {
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s ease;
+    }
+    
+    .pain-card.flipped .pain-card-inner {
+      transform: rotateY(180deg);
+    }
+    
+    .pain-front, .pain-back {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      padding: 32px;
+    }
+    
+    .pain-front {
+      position: relative;
+    }
+    
+    .pain-back {
+      transform: rotateY(180deg);
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(59, 130, 246, 0.1));
+    }
+    
+    .pain-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(124, 58, 237, 0.15);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    
+    .pain-icon svg {
+      width: 24px;
+      height: 24px;
+      color: var(--accent-purple-light);
+    }
+    
+    .pain-title {
+      font-size: 18px;
+      margin-bottom: 12px;
+    }
+    
+    .pain-text {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+    
+    .pain-solution {
+      font-size: 14px;
+      color: var(--accent-green);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    
+    .pain-solution svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+    
+    /* ============================================
+       HOW IT WORKS (TIMELINE)
+       ============================================ */
+    .timeline-section {
+      background: var(--bg-primary);
+    }
+    
+    .timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .timeline-line {
+      position: absolute;
+      left: 40px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--border-color);
+    }
+    
+    .timeline-progress {
+      position: absolute;
+      left: 40px;
+      top: 0;
+      width: 2px;
+      background: linear-gradient(180deg, var(--accent-purple), var(--accent-blue));
+      height: 0;
+      transition: height 0.8s ease;
+    }
+    
+    .timeline-item {
+      position: relative;
+      padding-left: 100px;
+      padding-bottom: 80px;
+    }
+    
+    .timeline-item:last-child {
+      padding-bottom: 0;
+    }
+    
+    .timeline-dot {
+      position: absolute;
+      left: 32px;
+      top: 0;
+      width: 18px;
+      height: 18px;
+      background: var(--bg-primary);
+      border: 2px solid var(--border-color);
+      border-radius: 50%;
+      transition: all var(--transition-medium);
+    }
+    
+    .timeline-item.active .timeline-dot {
+      border-color: var(--accent-purple);
+      background: var(--accent-purple);
+      box-shadow: 0 0 20px rgba(124, 58, 237, 0.5);
+    }
+    
+    .timeline-number {
+      position: absolute;
+      left: -20px;
+      top: -5px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent-purple-light);
+    }
+    
+    .timeline-content {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 32px;
+      transition: all var(--transition-medium);
+    }
+    
+    .timeline-item.active .timeline-content {
+      border-color: var(--accent-purple);
+    }
+    
+    .timeline-step {
+      font-size: 13px;
+      color: var(--accent-purple-light);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    
+    .timeline-title {
+      font-size: 24px;
+      margin-bottom: 12px;
+    }
+    
+    .timeline-text {
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+    
+    /* ============================================
+       ROI CALCULATOR
+       ============================================ */
+    .roi-section {
+      background: var(--bg-secondary);
+    }
+    
+    .roi-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    
+    .roi-content h3 {
+      font-size: 32px;
+      margin-bottom: 16px;
+    }
+    
+    .roi-content p {
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+    }
+    
+    .roi-form {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 40px;
+    }
+    
+    .roi-slider-group {
+      margin-bottom: 32px;
+    }
+    
+    .roi-slider-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+    
+    .roi-slider-label span:first-child {
+      color: var(--text-secondary);
+    }
+    
+    .roi-slider-label span:last-child {
+      color: var(--accent-purple-light);
+      font-weight: 600;
+    }
+    
+    .roi-slider {
+      width: 100%;
+      height: 6px;
+      background: var(--border-color);
+      border-radius: 3px;
+      appearance: none;
+      cursor: pointer;
+    }
+    
+    .roi-slider::-webkit-slider-thumb {
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      background: var(--accent-purple);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      box-shadow: 0 0 10px rgba(124, 58, 237, 0.5);
+    }
+    
+    .roi-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.1);
+    }
+    
+    .roi-result {
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(59, 130, 246, 0.1));
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 32px;
+      text-align: center;
+    }
+    
+    .roi-result-label {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+    
+    .roi-result-value {
+      font-size: clamp(32px, 4vw, 48px);
+      font-family: var(--font-heading);
+      font-weight: 700;
+      color: var(--accent-green);
+      margin-bottom: 24px;
+    }
+    
+    .roi-result-sub {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+    
+    /* ============================================
+       CASES SECTION
+       ============================================ */
+    .cases-section {
+      background: var(--bg-primary);
+    }
+    
+    .cases-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+    }
+    
+    .case-card {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 40px;
+      transition: all var(--transition-medium);
+    }
+    
+    .case-card:hover {
+      border-color: var(--accent-purple);
+      transform: translateY(-4px);
+    }
+    
+    .case-tag {
+      display: inline-block;
+      font-size: 12px;
+      color: var(--accent-purple-light);
+      background: rgba(124, 58, 237, 0.15);
+      padding: 6px 12px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+    }
+    
+    .case-title {
+      font-size: 24px;
+      margin-bottom: 16px;
+    }
+    
+    .case-problem, .case-solution, .case-result {
+      margin-bottom: 16px;
+    }
+    
+    .case-label {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    
+    .case-text {
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+    
+    .case-metrics {
+      display: flex;
+      gap: 24px;
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border-color);
+    }
+    
+    .case-metric {
+      text-align: center;
+    }
+    
+    .case-metric-value {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--accent-green);
+      font-family: var(--font-heading);
+    }
+    
+    .case-metric-label {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    
+    .case-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 300px;
+      text-align: center;
+    }
+    
+    .case-placeholder-icon {
+      width: 64px;
+      height: 64px;
+      background: rgba(124, 58, 237, 0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    
+    .case-placeholder-icon svg {
+      width: 32px;
+      height: 32px;
+      color: var(--accent-purple-light);
+    }
+    
+    .case-placeholder-text {
+      color: var(--text-secondary);
+      font-size: 16px;
+    }
+    
+    /* ============================================
+       INDUSTRIES SECTION
+       ============================================ */
+    .industries-section {
+      background: var(--bg-secondary);
+    }
+    
+    .industries-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    
+    .industry-card {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 28px;
+      transition: all var(--transition-medium);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .industry-card:hover {
+      border-color: var(--accent-purple);
+      transform: translateY(-4px);
+    }
+    
+    .industry-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(124, 58, 237, 0.15);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    
+    .industry-icon svg {
+      width: 22px;
+      height: 22px;
+      color: var(--accent-purple-light);
+    }
+    
+    .industry-title {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+    
+    .industry-tooltip {
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-10px);
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 16px;
+      width: 280px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      opacity: 0;
+      visibility: hidden;
+      transition: all var(--transition-fast);
+      z-index: 10;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    }
+    
+    .industry-card:hover .industry-tooltip {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(-16px);
+    }
+    
+    .industry-tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 8px solid transparent;
+      border-top-color: var(--border-color);
+    }
+    
+    /* ============================================
+       CTA SECTION
+       ============================================ */
+    .cta-section {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+      padding: 100px 0;
+    }
+    
+    .cta-content {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .cta-title {
+      font-size: clamp(32px, 4vw, 48px);
+      margin-bottom: 16px;
+    }
+    
+    .cta-text {
+      font-size: 18px;
+      opacity: 0.9;
+      margin-bottom: 32px;
+    }
+    
+    .cta-form {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .cta-input {
+      flex: 1;
+      min-width: 200px;
+      padding: 16px 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      color: var(--text-primary);
+      font-size: 16px;
+      transition: all var(--transition-fast);
+    }
+    
+    .cta-input::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+    
+    .cta-input:focus {
+      outline: none;
+      border-color: rgba(255, 255, 255, 0.5);
+      background: rgba(255, 255, 255, 0.15);
+    }
+    
+    .cta-btn {
+      padding: 16px 32px;
+      background: var(--text-primary);
+      color: var(--accent-purple);
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      transition: all var(--transition-fast);
+    }
+    
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    .cta-social {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      margin-top: 32px;
+    }
+    
+    .cta-social-link {
+      width: 44px;
+      height: 44px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition-fast);
+    }
+    
+    .cta-social-link:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+    
+    .cta-social-link svg {
+      width: 20px;
+      height: 20px;
+      color: var(--text-primary);
+    }
+    
+    /* ============================================
+       FOOTER
+       ============================================ */
+    .footer {
+      background: var(--bg-primary);
+      padding: 60px 0 30px;
+      border-top: 1px solid var(--border-color);
+    }
+    
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+    
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .footer-logo svg {
+      width: 32px;
+      height: 32px;
+      color: var(--accent-purple);
+    }
+    
+    .footer-logo-text {
+      font-family: var(--font-heading);
+      font-size: 20px;
+      font-weight: 700;
+    }
+    
+    .footer-slogan {
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+    
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+    
+    .footer-link {
+      color: var(--text-secondary);
+      font-size: 14px;
+      transition: color var(--transition-fast);
+    }
+    
+    .footer-link:hover {
+      color: var(--text-primary);
+    }
+    
+    .footer-bottom {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid var(--border-color);
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+    
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (max-width: 968px) {
+      .nav-menu, .nav-cta {
+        display: none;
+      }
+      
+      .nav-burger {
+        display: flex;
+      }
+      
+      .nav-menu.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--bg-primary);
+        padding: 20px;
+        gap: 16px;
+      }
+      
+      .pain-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .timeline-line, .timeline-progress {
+        left: 20px;
+      }
+      
+      .timeline-item {
+        padding-left: 60px;
+      }
+      
+      .timeline-dot, .timeline-number {
+        left: 12px;
+      }
+      
+      .roi-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      
+      .cases-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .industries-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (max-width: 640px) {
+      :root {
+        --section-padding: 80px;
+      }
+      
+      .hero-buttons {
+        flex-direction: column;
+        width: 100%;
+      }
+      
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+      
+      .industries-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .cta-form {
+        flex-direction: column;
+      }
+      
+      .cta-input {
+        width: 100%;
+      }
+      
+      .cta-btn {
+        width: 100%;
+      }
+      
+      .footer-content {
+        flex-direction: column;
+        gap: 24px;
+        text-align: center;
+      }
+
+      .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      /* Services & Platforms responsive */
+      .services-grid, .platforms-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .services-grid, .platforms-grid {
+        grid-template-columns: 1fr !important;
+      }
+      
+      #platforms > div > div:last-child {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* Service cards */
+    .service-card {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 2rem;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 0.875rem;
+    }
+    
+    .service-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(124,58,237,0.4);
+      box-shadow: 0 20px 40px rgba(124,58,237,0.1);
+    }
+    
+    .service-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .service-title {
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: white;
+      margin: 0;
+    }
+    
+    .service-desc {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+    
+    .service-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-top: auto;
+    }
+    
+    .service-list li {
+      color: var(--text-secondary);
+      font-size: 0.82rem;
+      padding-left: 1.1rem;
+      position: relative;
+    }
+    
+    .service-list li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: #7C3AED;
+      font-size: 0.75rem;
+    }
+    
+    /* Platform cards */
+    .platform-card {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    
+    .platform-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--hover-border, rgba(124,58,237,0.5));
+      box-shadow: 0 16px 32px rgba(124,58,237,0.1);
+    }
+    
+    .platform-icon {
+      width: 52px;
+      height: 52px;
+      background: var(--icon-bg, rgba(124,58,237,0.1));
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 0.875rem;
+    }
+    
+    .platform-name {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: white;
+      margin-bottom: 0.4rem;
+    }
+    
+    .platform-desc {
+      color: var(--text-secondary);
+      font-size: 0.75rem;
+      line-height: 1.5;
+    }
+  </style>
+  
+  <!-- Яндекс.Метрика counter -->
+  <script type="text/javascript">
+     (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+     m[i].l=1*new Date();
+     for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+     k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+     (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+     ym(107289831, "init", {
+          clickmap:true,
+          trackLinks:true,
+          accurateTrackBounce:true,
+          webvisor:true,
+          triggerEvent:true
+     });
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/107289831" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- END Яндекс.Метрика -->
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="nav" id="nav">
+    <div class="container">
+      <a href="#" class="nav-logo">
+        <img src="logo.png" alt="SupBizAI" style="height: 96px; width: auto; filter: drop-shadow(0 0 20px rgba(0,255,136,0.9));">
+        <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 900; font-size: 1.5rem; letter-spacing: -0.5px;"><span style="color: #fff;">Sup</span><span style="color: #00FF88; text-shadow: 0 0 20px rgba(0,255,136,0.8);">BizAI</span></span>
+      </a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="#services" class="nav-link">Услуги</a></li>
+        <li><a href="#pain" class="nav-link">Боли</a></li>
+        <li><a href="#how" class="nav-link">Как работает</a></li>
+        <li><a href="#cases" class="nav-link">Кейсы</a></li>
+        <li><a href="#platforms" class="nav-link">Платформы</a></li>
+        <li><a href="#about" class="nav-link">О нас</a></li>
+      </ul>
+      <a href="#contact" class="nav-cta">Бесплатный аудит</a>
+      <div class="nav-burger" id="navBurger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="hero-grid"></div>
+      <div class="hero-gradient-1"></div>
+      <div class="hero-gradient-2"></div>
+      <div class="hero-particles" id="heroParticles"></div>
+    </div>
+
+    <div class="container hero-content">
+      <div class="hero-badge">
+        <i data-lucide="zap"></i>
+        SupBizAI — Автоматизация нового уровня
+      </div>
+
+      <h1 class="hero-title">
+        Ваш бизнес работает<br>
+        <span>пока вы спите</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        Автоматизируем процессы которые съедают ваше время и деньги
+      </p>
+      
+      <div class="hero-buttons">
+        <a href="#contact" class="btn btn-primary">
+          <i data-lucide="zap"></i>
+          Получить бесплатный аудит
+        </a>
+        <a href="#cases" class="btn btn-secondary">
+          <i data-lucide="folder-open"></i>
+          Смотреть кейсы
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAIN POINTS SECTION -->
+  <section class="pain-points" id="pain">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">Проблемы</span>
+        <h2 class="section-title">Узнаёте себя?</h2>
+        <p class="section-subtitle">
+          Эти ситуации знакомы большинству предпринимателей
+        </p>
+      </div>
+      
+      <div class="pain-grid">
+        <!-- Card 1 -->
+        <div class="pain-card animate-on-scroll" onclick="this.classList.toggle('flipped')">
+          <div class="pain-card-inner">
+            <div class="pain-front">
+              <div class="pain-icon">
+                <i data-lucide="message-square"></i>
+              </div>
+              <h3 class="pain-title">4 часа на одинаковые ответы</h3>
+              <p class="pain-text">
+                Менеджеры тратят большую часть дня на однотипные вопросы клиентов
+              </p>
+            </div>
+            <div class="pain-back">
+              <div class="pain-icon">
+                <i data-lucide="bot"></i>
+              </div>
+              <h3 class="pain-title">AI-бот отвечает мгновенно</h3>
+              <p class="pain-solution">
+                <i data-lucide="check-circle"></i>
+                Chatbot обрабатывает 80% типовых вопросов за секунды
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Card 2 -->
+        <div class="pain-card animate-on-scroll" onclick="this.classList.toggle('flipped')">
+          <div class="pain-card-inner">
+            <div class="pain-front">
+              <div class="pain-icon">
+                <i data-lucide="table"></i>
+              </div>
+              <h3 class="pain-title">Данные теряются при переносе</h3>
+              <p class="pain-text">
+                Информация теряется при переносе между таблицами и системами
+              </p>
+            </div>
+            <div class="pain-back">
+              <div class="pain-icon">
+                <i data-lucide="workflow"></i>
+              </div>
+              <h3 class="pain-title">Автоматическая синхронизация</h3>
+              <p class="pain-solution">
+                <i data-lucide="check-circle"></i>
+                n8n связывает все системы в единый поток данных
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Card 3 -->
+        <div class="pain-card animate-on-scroll" onclick="this.classList.toggle('flipped')">
+          <div class="pain-card-inner">
+            <div class="pain-front">
+              <div class="pain-icon">
+                <i data-lucide="clock"></i>
+              </div>
+              <h3 class="pain-title">Заявки теряются из-за задержек</h3>
+              <p class="pain-text">
+                Клиенты уходят к конкурентам пока ждут ответа
+              </p>
+            </div>
+            <div class="pain-back">
+              <div class="pain-icon">
+                <i data-lucide="zap"></i>
+              </div>
+              <h3 class="pain-title">Мгновенная обработка</h3>
+              <p class="pain-solution">
+                <i data-lucide="check-circle"></i>
+                Заявки обрабатываются автоматически 24/7
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Card 4 -->
+        <div class="pain-card animate-on-scroll" onclick="this.classList.toggle('flipped')">
+          <div class="pain-card-inner">
+            <div class="pain-front">
+              <div class="pain-icon">
+                <i data-lucide="file-text"></i>
+              </div>
+              <h3 class="pain-title">Отчёты готовятся 2 дня</h3>
+              <p class="pain-text">
+                Сбор данных из разных источников занимает дни
+              </p>
+            </div>
+            <div class="pain-back">
+              <div class="pain-icon">
+                <i data-lucide="bar-chart-3"></i>
+              </div>
+              <h3 class="pain-title">Отчёты в реальном времени</h3>
+              <p class="pain-solution">
+                <i data-lucide="check-circle"></i>
+                Дашборды обновляются автоматически каждый час
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Card 5 -->
+        <div class="pain-card animate-on-scroll" onclick="this.classList.toggle('flipped')">
+          <div class="pain-card-inner">
+            <div class="pain-front">
+              <div class="pain-icon">
+                <i data-lucide="users"></i>
+              </div>
+              <h3 class="pain-title">Долгий онбординг сотрудников</h3>
+              <p class="pain-text">
+                Новые работники входят в курс дела неделями
+              </p>
+            </div>
+            <div class="pain-back">
+              <div class="pain-icon">
+                <i data-lucide="graduation-cap"></i>
+              </div>
+              <h3 class="pain-title">База знаний + AI-ассистент</h3>
+              <p class="pain-solution">
+                <i data-lucide="check-circle"></i>
+                Сотрудник получает ответы на вопросы мгновенно
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Card 6 -->
+        <div class="pain-card animate-on-scroll" onclick="this.classList.toggle('flipped')">
+          <div class="pain-card-inner">
+            <div class="pain-front">
+              <div class="pain-icon">
+                <i data-lucide="trending-down"></i>
+              </div>
+              <h3 class="pain-title">Ошибки стоят денег</h3>
+              <p class="pain-text">
+                Человеческий фактор приводит к финансовым потерям
+              </p>
+            </div>
+            <div class="pain-back">
+              <div class="pain-icon">
+                <i data-lucide="shield-check"></i>
+              </div>
+              <h3 class="pain-title">Валидация и контроль</h3>
+              <p class="pain-solution">
+                <i data-lucide="check-circle"></i>
+                Автоматическая проверка всех операций
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS (TIMELINE) -->
+  <section class="timeline-section" id="how">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">Процесс</span>
+        <h2 class="section-title">Как мы работаем</h2>
+        <p class="section-subtitle">
+          Три шага от хаоса к автоматизированной системе
+        </p>
+      </div>
+      
+      <div class="timeline">
+        <div class="timeline-line"></div>
+        <div class="timeline-progress" id="timelineProgress"></div>
+        
+        <div class="timeline-item animate-on-scroll" data-step="1">
+          <div class="timeline-dot">
+            <span class="timeline-number">01</span>
+          </div>
+          <div class="timeline-content">
+            <div class="timeline-step">Шаг 1 — Аудит</div>
+            <h3 class="timeline-title">Разбираем ваши процессы</h3>
+            <p class="timeline-text">
+              Провожу полный аудит текущих бизнес-процессов. Нахожу узкие места, 
+              рутинные операции и точки роста. Составляю карту автоматизации с 
+              приоритетами и оценкой ROI.
+            </p>
+          </div>
+        </div>
+        
+        <div class="timeline-item animate-on-scroll" data-step="2">
+          <div class="timeline-dot">
+            <span class="timeline-number">02</span>
+          </div>
+          <div class="timeline-content">
+            <div class="timeline-step">Шаг 2 — Решение</div>
+            <h3 class="timeline-title">Внедряем автоматизацию</h3>
+            <p class="timeline-text">
+              Разрабатываю и внедряю решения на базе n8n, AI и no-code инструментов. 
+              Интегрирую CRM, мессенджеры, таблицы и другие системы в единый 
+              автоматизированный поток.
+            </p>
+          </div>
+        </div>
+        
+        <div class="timeline-item animate-on-scroll" data-step="3">
+          <div class="timeline-dot">
+            <span class="timeline-number">03</span>
+          </div>
+          <div class="timeline-content">
+            <div class="timeline-step">Шаг 3 — Результат</div>
+            <h3 class="timeline-title">Система работает 24/7</h3>
+            <p class="timeline-text">
+              Автоматизация работает без вашего участия. Вы получаете отчёты и 
+              контролируете ключевые метрики. Освобождённое время вкладываете в 
+              развитие бизнеса.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALCULATOR SECTION -->
+  <section id="calculator" style="padding: 6rem 0; background: var(--bg-secondary); position: relative; overflow: hidden;">
+    <!-- Фоновый эффект -->
+    <div style="position: absolute; width: 500px; height: 500px; background: radial-gradient(circle, rgba(0,255,136,0.04) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%,-50%); pointer-events: none;"></div>
+
+    <div class="container" style="position:relative; z-index:1;">
+      <!-- Заголовок -->
+      <div style="text-align:center; margin-bottom:3rem;">
+        <span class="section-tag">Калькулятор</span>
+        <h2 style="font-size: clamp(28px, 4vw, 36px); margin: 12px 0;">Сколько вы теряете на рутине?</h2>
+        <p style="color: var(--text-secondary); max-width: 560px; margin: 1rem auto 0; line-height: 1.7;">
+          Введите реальные данные вашего бизнеса — калькулятор покажет точные потери и сколько вы сэкономите с автоматизацией
+        </p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 960px; margin: 0 auto; align-items: start;" class="calc-grid">
+        <!-- ЛЕВАЯ КОЛОНКА — Вводные данные -->
+        <div style="background: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: 24px; padding: 2rem;">
+          <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1rem; color: white; margin-bottom: 1.75rem; display: flex; align-items: center; gap: 0.5rem;">
+            <span style="background: rgba(0,255,136,0.1); color: #00FF88; width: 28px; height: 28px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.85rem;">✎</span>
+            Данные вашего бизнеса
+          </h3>
+
+          <!-- Поле 1: Количество сотрудников -->
+          <div class="calc-field">
+            <div class="calc-label-row">
+              <label class="calc-label">👥 Сотрудников на рутинных задачах</label>
+              <span class="calc-value-badge" id="val-employees">3</span>
+            </div>
+            <input type="range" class="calc-slider" id="employees" min="1" max="50" value="3" step="1">
+            <div class="calc-range-hints"><span>1 человек</span><span>50 человек</span></div>
+          </div>
+
+          <!-- Поле 2: Зарплата -->
+          <div class="calc-field">
+            <div class="calc-label-row">
+              <label class="calc-label">💰 Зарплата одного сотрудника в месяц</label>
+              <span class="calc-value-badge" id="val-salary">50 000 ₽</span>
+            </div>
+            <input type="range" class="calc-slider" id="salary" min="20000" max="300000" value="50000" step="5000">
+            <div class="calc-range-hints"><span>20 000 ₽</span><span>300 000 ₽</span></div>
+          </div>
+
+          <!-- Поле 3: Часов в день всего -->
+          <div class="calc-field">
+            <div class="calc-label-row">
+              <label class="calc-label">🕐 Рабочих часов в день</label>
+              <span class="calc-value-badge" id="val-workhours">8 часов</span>
+            </div>
+            <input type="range" class="calc-slider" id="workhours" min="4" max="12" value="8" step="1">
+            <div class="calc-range-hints"><span>4 часа</span><span>12 часов</span></div>
+          </div>
+
+          <!-- Поле 4: Часов на рутину -->
+          <div class="calc-field">
+            <div class="calc-label-row">
+              <label class="calc-label">🔄 Из них часов на рутину и повторяющиеся задачи</label>
+              <span class="calc-value-badge" id="val-routinehours">3 часа</span>
+            </div>
+            <input type="range" class="calc-slider" id="routinehours" min="1" max="10" value="3" step="0.5">
+            <div class="calc-range-hints"><span>1 час</span><span>10 часов</span></div>
+          </div>
+
+          <!-- Поле 5: Рабочих дней -->
+          <div class="calc-field">
+            <div class="calc-label-row">
+              <label class="calc-label">📅 Рабочих дней в месяц</label>
+              <span class="calc-value-badge" id="val-workdays">22 дня</span>
+            </div>
+            <input type="range" class="calc-slider" id="workdays" min="20" max="26" value="22" step="1">
+            <div class="calc-range-hints"><span>20 дней</span><span>26 дней</span></div>
+          </div>
+
+          <!-- Пояснение что считается рутиной -->
+          <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; padding: 1rem; margin-top: 0.5rem;">
+            <p style="color: var(--text-secondary); font-size: 0.78rem; line-height: 1.6; margin: 0;">
+              <span style="color:#00FF88;">Что считать рутиной:</span> ручной перенос данных, одинаковые ответы клиентам, составление отчётов, запись в таблицы, отправка шаблонных сообщений, мониторинг и обзвон
+            </p>
+          </div>
+        </div>
+
+        <!-- ПРАВАЯ КОЛОНКА — Результаты -->
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+          <!-- Карточка: стоимость 1 рутинного часа -->
+          <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; padding: 1.25rem 1.5rem;">
+            <p style="color: var(--text-secondary); font-size: 0.8rem; margin-bottom: 0.4rem;">Стоимость 1 часа рутины одного сотрудника</p>
+            <div style="font-family: 'Space Grotesk', sans-serif; font-size: 1.6rem; font-weight: 700; color: white;" id="res-hourly-cost">— ₽</div>
+          </div>
+
+          <!-- Карточка: Потери в месяц -->
+          <div style="background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.25); border-radius: 18px; padding: 1.5rem;">
+            <p style="color: #FCA5A5; font-size: 0.8rem; margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 0.05em;">💸 Теряете в месяц</p>
+            <div style="font-family: 'Space Grotesk', sans-serif; font-size: 2.2rem; font-weight: 700; color: #FCA5A5;" id="res-monthly" data-calc="monthly">— ₽</div>
+            <p style="color: rgba(252,165,165,0.6); font-size: 0.78rem; margin-top: 0.4rem;" id="res-monthly-desc">на оплату рутинного труда</p>
+          </div>
+
+          <!-- Карточка: Потери в год -->
+          <div style="background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.35); border-radius: 18px; padding: 1.5rem;">
+            <p style="color: #FCA5A5; font-size: 0.8rem; margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 0.05em;">🔥 Теряете в год</p>
+            <div style="font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem; font-weight: 700; color: #F87171;" id="res-yearly" data-calc="yearly">— ₽</div>
+            <p style="color: rgba(252,165,165,0.6); font-size: 0.78rem; margin-top: 0.4rem;" id="res-yearly-desc">уходит на ручную работу</p>
+          </div>
+
+          <!-- Карточка: Экономия -->
+          <div style="background: rgba(0,255,136,0.08); border: 1px solid rgba(0,255,136,0.3); border-radius: 18px; padding: 1.5rem; position: relative; overflow: hidden;">
+            <div style="position: absolute; top: -20px; right: -20px; width: 100px; height: 100px; background: radial-gradient(circle, rgba(0,255,136,0.15) 0%, transparent 70%);"></div>
+            <p style="color: #00FF88; font-size: 0.8rem; margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 0.05em;">✅ Экономия с автоматизацией в год</p>
+            <div style="font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem; font-weight: 700; color: #00FF88; text-shadow: 0 0 20px rgba(0,255,136,0.4);" id="res-savings" data-calc="savings">— ₽</div>
+            <p style="color: rgba(0,255,136,0.6); font-size: 0.78rem; margin-top: 0.4rem;">85% рутины автоматизируется</p>
+          </div>
+
+          <!-- Карточка: Процент рутины -->
+          <div style="background: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: 18px; padding: 1.25rem 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+              <p style="color: var(--text-secondary); font-size: 0.8rem; margin: 0;">Рутина от рабочего времени</p>
+              <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: white;" id="res-percent">0%</span>
+            </div>
+            <div style="height: 8px; background: rgba(255,255,255,0.08); border-radius: 4px; overflow: hidden;">
+              <div id="res-progress" style="height: 100%; border-radius: 4px; background: linear-gradient(90deg, #00FF88, #00CC6A); box-shadow: 0 0 8px rgba(0,255,136,0.5); width: 0%; transition: width 0.5s ease;"></div>
+            </div>
+          </div>
+
+          <!-- CTA кнопка -->
+          <button onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})" style="width: 100%; background: linear-gradient(135deg, #00FF88, #00CC6A); color: #0A0A0F; border: none; padding: 1rem; border-radius: 14px; font-size: 1rem; font-weight: 700; font-family: 'Space Grotesk', sans-serif; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 0 20px rgba(0,255,136,0.3);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 0 30px rgba(0,255,136,0.5)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 0 20px rgba(0,255,136,0.3)'">Хочу вернуть эти деньги →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASES SECTION -->
+  <section class="cases-section" id="cases">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">Кейсы</span>
+        <h2 class="section-title">Реальные результаты</h2>
+        <p class="section-subtitle">
+          Примеры внедрений с измеримыми метриками
+        </p>
+      </div>
+      
+      <div class="cases-grid">
+        <!-- Case 1 -->
+        <div class="case-card animate-on-scroll">
+          <span class="case-tag" style="background:rgba(16,185,129,0.15); color:#10B981;">AI-агент</span>
+          <h3 class="case-title">AI-менеджер для языковой школы</h3>
+
+          <div class="case-problem">
+            <div class="case-label">Проблема</div>
+            <p class="case-text">
+              Менеджер не успевал обрабатывать заявки из Instagram и VK,
+              часть клиентов уходила к конкурентам
+            </p>
+          </div>
+
+          <div class="case-solution">
+            <div class="case-label">Решение</div>
+            <p class="case-text">
+              AI-бот в мессенджерах отвечает на вопросы, квалифицирует лидов и
+              записывает на пробный урок
+            </p>
+          </div>
+
+          <div class="case-result">
+            <div class="case-label">Результат</div>
+            <p class="case-text">
+              Бот обрабатывает все заявки мгновенно, менеджер подключается только
+              для сложных случаев
+            </p>
+          </div>
+
+          <div class="case-metrics">
+            <div class="case-metric">
+              <div class="case-metric-value">24/7</div>
+              <div class="case-metric-label">Работа без выходных</div>
+            </div>
+            <div class="case-metric">
+              <div class="case-metric-value">0%</div>
+              <div class="case-metric-label">Потерь заявок</div>
+            </div>
+            <div class="case-metric">
+              <div class="case-metric-value">-1</div>
+              <div class="case-metric-label">Менеджер в штате</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Case 2: HR AI-агент -->
+        <div class="case-card animate-on-scroll">
+          <span class="case-tag" style="background:rgba(16,185,129,0.15); color:#10B981;">HR AI-агент</span>
+          <h3 class="case-title">Автоматический найм сотрудников</h3>
+
+          <div class="case-problem">
+            <div class="case-label">Проблема</div>
+            <p class="case-text">
+              Рекрутер тратил весь день на ручной просмотр откликов с HH.ru,
+              первичные ответы и назначение собеседований. Хорошие кандидаты остывали пока ждали ответа
+            </p>
+          </div>
+
+          <div class="case-solution">
+            <div class="case-label">Решение</div>
+            <p class="case-text">
+              AI-агент в Telegram автоматически получает отклики с HH.ru, анализирует резюме,
+              задаёт квалифицирующие вопросы, оценивает ответы и передаёт только подходящих HR-менеджеру
+            </p>
+          </div>
+
+          <div class="case-result">
+            <div class="case-label">Результат</div>
+            <p class="case-text">
+              AI обрабатывает все отклики за минуты, кандидаты получают ответ сразу,
+              HR работает только с подходящими претендентами
+            </p>
+          </div>
+
+          <div class="case-metrics">
+            <div class="case-metric">
+              <div class="case-metric-value">−85%</div>
+              <div class="case-metric-label">Времени на скрининг</div>
+            </div>
+            <div class="case-metric">
+              <div class="case-metric-value">15 мин</div>
+              <div class="case-metric-label">Вместо 2 дней</div>
+            </div>
+            <div class="case-metric">
+              <div class="case-metric-value">×3</div>
+              <div class="case-metric-label">Больше в работе</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Case 3: Контент-завод -->
+        <div class="case-card animate-on-scroll">
+          <span class="case-tag" style="background:rgba(245,158,11,0.15); color:#F59E0B;">Контент-завод</span>
+          <h3 class="case-title">Автопостинг во все соцсети</h3>
+
+          <div class="case-problem">
+            <div class="case-label">Проблема</div>
+            <p class="case-text">
+              Бизнес не вёл соцсети — не хватало времени и людей. SMM-менеджер стоил дорого,
+              контент выходил редко, охваты падали, новые клиенты не приходили
+            </p>
+          </div>
+
+          <div class="case-solution">
+            <div class="case-label">Решение</div>
+            <p class="case-text">
+              Полностью автоматический контент-завод: AI генерирует посты, подбирает хештеги,
+              адаптирует под каждую платформу и публикует одновременно в Telegram, VK, Instagram и TikTok
+            </p>
+          </div>
+
+          <div class="case-result">
+            <div class="case-label">Результат</div>
+            <p class="case-text">
+              Соцсети живут своей жизнью — контент выходит регулярно, охваты растут,
+              клиенты приходят без участия SMM-менеджера
+            </p>
+          </div>
+
+          <div class="case-metrics">
+            <div class="case-metric">
+              <div class="case-metric-value">50+</div>
+              <div class="case-metric-label">Постов в месяц</div>
+            </div>
+            <div class="case-metric">
+              <div class="case-metric-value">4</div>
+              <div class="case-metric-label">Соцсети сразу</div>
+            </div>
+            <div class="case-metric">
+              <div class="case-metric-value">0₽</div>
+              <div class="case-metric-label">На SMM-менеджера</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Case 4: КРУ (В разработке) -->
+        <div class="case-card animate-on-scroll">
+          <div class="case-placeholder">
+            <div class="case-placeholder-icon">
+              <i data-lucide="construction"></i>
+            </div>
+            <h3 class="case-title">Система КРУ для предприятия</h3>
+            <p class="case-placeholder-text">
+              Скоро результаты внедрения
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INDUSTRIES SECTION -->
+  <section class="industries-section" id="industries">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <span class="section-label">Отрасли</span>
+        <h2 class="section-title">Сферы применения</h2>
+        <p class="section-subtitle">
+          Автоматизация работает в любой индустрии
+        </p>
+      </div>
+      
+      <div class="industries-grid">
+        <!-- Retail -->
+        <div class="industry-card animate-on-scroll">
+          <div class="industry-icon">
+            <i data-lucide="shopping-cart"></i>
+          </div>
+          <h3 class="industry-title">Розница</h3>
+          <div class="industry-tooltip">
+            Авто-заказы поставщикам, учёт остатков, SMS покупателям о статусе заказа
+          </div>
+        </div>
+        
+        <!-- HoReCa -->
+        <div class="industry-card animate-on-scroll">
+          <div class="industry-icon">
+            <i data-lucide="utensils"></i>
+          </div>
+          <h3 class="industry-title">HoReCa</h3>
+          <div class="industry-tooltip">
+            Бронирование столов, учёт продуктов, автоматические отчёты по продажам
+          </div>
+        </div>
+        
+        <!-- Online Schools -->
+        <div class="industry-card animate-on-scroll">
+          <div class="industry-icon">
+            <i data-lucide="monitor-play"></i>
+          </div>
+          <h3 class="industry-title">Онлайн-школы</h3>
+          <div class="industry-tooltip">
+            Запись на курсы, напоминания ученикам, выдача сертификатов
+          </div>
+        </div>
+        
+        <!-- Medicine -->
+        <div class="industry-card animate-on-scroll">
+          <div class="industry-icon">
+            <i data-lucide="heart-pulse"></i>
+          </div>
+          <h3 class="industry-title">Медицина</h3>
+          <div class="industry-tooltip">
+            Запись на приём, напоминания пациентам, интеграция с ЕГИСЗ
+          </div>
+        </div>
+        
+        <!-- Logistics -->
+        <div class="industry-card animate-on-scroll">
+          <div class="industry-icon">
+            <i data-lucide="truck"></i>
+          </div>
+          <h3 class="industry-title">Логистика</h3>
+          <div class="industry-tooltip">
+            Трекинг грузов, авто-уведомления клиентам, оптимизация маршрутов
+          </div>
+        </div>
+        
+        <!-- Real Estate -->
+        <div class="industry-card animate-on-scroll">
+          <div class="industry-icon">
+            <i data-lucide="building"></i>
+          </div>
+          <h3 class="industry-title">Недвижимость</h3>
+          <div class="industry-tooltip">
+            Квалификация лидов, авто-подборки объектов, сопровождение сделок
+          </div>
+        </div>
+        
+        <!-- Manufacturing -->
+        <div class="industry-card animate-on-scroll">
+          <div class="industry-icon">
+            <i data-lucide="factory"></i>
+          </div>
+          <h3 class="industry-title">Производство</h3>
+          <div class="industry-tooltip">
+            Учёт сырья, планирование производства, контроль качества
+          </div>
+        </div>
+        
+        <!-- Marketing -->
+        <div class="industry-card animate-on-scroll">
+          <div class="industry-icon">
+            <i data-lucide="megaphone"></i>
+          </div>
+          <h3 class="industry-title">Маркетинговые агентства</h3>
+          <div class="industry-tooltip">
+            Авто-отчёты для клиентов, сбор статистики, генерация креативов
+          </div>
+        </div>
+        
+        <!-- E-commerce -->
+        <div class="industry-card animate-on-scroll">
+          <div class="industry-icon">
+            <i data-lucide="package"></i>
+          </div>
+          <h3 class="industry-title">E-commerce</h3>
+          <div class="industry-tooltip">
+            Синхронизация маркетплейсов, обработка возвратов, лояльность клиентов
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA SECTION -->
+  <section id="contact" style="padding:7rem 0 5rem; position:relative; overflow:hidden;">
+    <!-- Фоновые эффекты -->
+    <div style="position:absolute; width:600px; height:600px; background:radial-gradient(circle, rgba(0,255,136,0.06) 0%, transparent 70%); top:50%; left:50%; transform:translate(-50%, -50%); pointer-events:none;"></div>
+    <div class="container" style="position:relative; z-index:1;">
+      <!-- Социальное доказательство -->
+      <div style="display:flex; justify-content:center; gap:2rem; margin-bottom:3rem; flex-wrap:wrap;">
+        <div style="text-align:center;">
+          <div style="font-family:'Space Grotesk',sans-serif; font-size:2rem; font-weight:700; color:#00FF88; text-shadow:0 0 10px rgba(0,255,136,0.5);">100+</div>
+          <div style="color:var(--text-secondary); font-size:0.8rem;">автоматизаций запущено</div>
+        </div>
+        <div style="width:1px; background:rgba(255,255,255,0.1); height:50px; align-self:center;"></div>
+        <div style="text-align:center;">
+          <div style="font-family:'Space Grotesk',sans-serif; font-size:2rem; font-weight:700; color:#00FF88; text-shadow:0 0 10px rgba(0,255,136,0.5);">24/7</div>
+          <div style="color:var(--text-secondary); font-size:0.8rem;">работают наши системы</div>
+        </div>
+        <div style="width:1px; background:rgba(255,255,255,0.1); height:50px; align-self:center;"></div>
+        <div style="text-align:center;">
+          <div style="font-family:'Space Grotesk',sans-serif; font-size:2rem; font-weight:700; color:#00FF88; text-shadow:0 0 10px rgba(0,255,136,0.5);">0 ₽</div>
+          <div style="color:var(--text-secondary); font-size:0.8rem;">стоит консультация</div>
+        </div>
+      </div>
+      <!-- Заголовок -->
+      <div style="text-align:center; margin-bottom:1rem;">
+        <span class="section-tag">Бесплатно</span>
+      </div>
+      <h2 style="text-align:center; font-size:clamp(2rem,4vw,3rem); margin-bottom:1rem; line-height:1.2;">
+        Узнайте сколько денег вы<br><span style="color:#00FF88; text-shadow:0 0 20px rgba(0,255,136,0.4);">теряете прямо сейчас</span>
+      </h2>
+      <!-- Психологические триггеры -->
+      <p style="text-align:center; color:var(--text-secondary); max-width:600px; margin:0 auto 1rem; font-size:1.05rem; line-height:1.7;">
+        Пока вы читаете это — ваши конкуренты уже автоматизируют процессы и сокращают издержки. Каждый день промедления стоит вам денег.
+      </p>
+      <!-- Преимущества -->
+      <div class="benefits-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; max-width:800px; margin:0 auto 3rem;">
+        <div style="background:rgba(0,255,136,0.05); border:1px solid rgba(0,255,136,0.15); border-radius:16px; padding:1.25rem; text-align:center;">
+          <div style="font-size:1.75rem; margin-bottom:0.5rem;">🔍</div>
+          <div style="color:white; font-weight:600; font-size:0.9rem; margin-bottom:0.4rem;">Аудит процессов</div>
+          <div style="color:var(--text-secondary); font-size:0.8rem; line-height:1.5;">Найдём где теряются деньги</div>
+        </div>
+        <div style="background:rgba(0,255,136,0.05); border:1px solid rgba(0,255,136,0.15); border-radius:16px; padding:1.25rem; text-align:center;">
+          <div style="font-size:1.75rem; margin-bottom:0.5rem;">💡</div>
+          <div style="color:white; font-weight:600; font-size:0.9rem; margin-bottom:0.4rem;">План автоматизации</div>
+          <div style="color:var(--text-secondary); font-size:0.8rem; line-height:1.5;">Конкретные шаги под ваш бизнес</div>
+        </div>
+        <div style="background:rgba(0,255,136,0.05); border:1px solid rgba(0,255,136,0.15); border-radius:16px; padding:1.25rem; text-align:center;">
+          <div style="font-size:1.75rem; margin-bottom:0.5rem;">📊</div>
+          <div style="color:white; font-weight:600; font-size:0.9rem; margin-bottom:0.4rem;">Расчёт ROI</div>
+          <div style="color:var(--text-secondary); font-size:0.8rem; line-height:1.5;">Покажем сколько сэкономите в цифрах</div>
+        </div>
+      </div>
+      <!-- Форма -->
+      <div style="max-width:560px; margin:0 auto; background:rgba(255,255,255,0.02); border:1px solid rgba(0,255,136,0.2); border-radius:24px; padding:2.5rem; box-shadow:0 0 40px rgba(0,255,136,0.05);">
+        <h3 style="font-family:'Space Grotesk',sans-serif; font-size:1.3rem; color:white; text-align:center; margin-bottom:0.5rem;">Записаться на консультацию</h3>
+        <p style="color:var(--text-secondary); font-size:0.85rem; text-align:center; margin-bottom:2rem;">Бесплатно · Без обязательств · 30 минут</p>
+        <form id="contactForm" style="display:flex; flex-direction:column; gap:1rem;">
+          <div>
+            <label style="color:var(--text-secondary); font-size:0.8rem; display:block; margin-bottom:0.4rem;">Ваше имя *</label>
+            <input type="text" id="formName" placeholder="Как вас зовут?" required style="width:100%; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:0.875rem 1rem; color:white; font-size:0.95rem; font-family:'Inter',sans-serif; outline:none; transition:border-color 0.3s ease; box-sizing:border-box;" onfocus="this.style.borderColor='rgba(0,255,136,0.5)'; this.style.boxShadow='0 0 0 3px rgba(0,255,136,0.1)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.boxShadow='none'">
+          </div>
+          <div>
+            <label style="color:var(--text-secondary); font-size:0.8rem; display:block; margin-bottom:0.4rem;">Номер телефона *</label>
+            <input type="tel" id="formPhone" placeholder="+7 (999) 123-45-67" required style="width:100%; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:0.875rem 1rem; color:white; font-size:0.95rem; font-family:'Inter',sans-serif; outline:none; transition:border-color 0.3s ease; box-sizing:border-box;" onfocus="this.style.borderColor='rgba(0,255,136,0.5)'; this.style.boxShadow='0 0 0 3px rgba(0,255,136,0.1)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.boxShadow='none'">
+          </div>
+          <div>
+            <label style="color:var(--text-secondary); font-size:0.8rem; display:block; margin-bottom:0.4rem;">Telegram или VK <span style="color:rgba(255,255,255,0.3); font-size:0.75rem;">(необязательно)</span></label>
+            <input type="text" id="formSocial" placeholder="@username или ссылка на VK" style="width:100%; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:0.875rem 1rem; color:white; font-size:0.95rem; font-family:'Inter',sans-serif; outline:none; transition:border-color 0.3s ease; box-sizing:border-box;" onfocus="this.style.borderColor='rgba(0,255,136,0.5)'; this.style.boxShadow='0 0 0 3px rgba(0,255,136,0.1)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.boxShadow='none'">
+          </div>
+          <div>
+            <label style="color:var(--text-secondary); font-size:0.8rem; display:block; margin-bottom:0.4rem;">Ваш бизнес или задача <span style="color:rgba(255,255,255,0.3); font-size:0.75rem;">(необязательно)</span></label>
+            <textarea id="formBusiness" placeholder="Например: у меня интернет-магазин, хочу автоматизировать обработку заказов..." rows="4" style="width:100%; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:0.875rem 1rem; color:white; font-size:0.875rem; font-family:'Inter',sans-serif; outline:none; transition:border-color 0.3s ease; box-sizing:border-box; resize:vertical; min-height:100px; line-height:1.6;" onfocus="this.style.borderColor='rgba(0,255,136,0.5)'; this.style.boxShadow='0 0 0 3px rgba(0,255,136,0.1)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.boxShadow='none'"></textarea>
+          </div>
+          <button type="submit" id="submitBtn" style="width:100%; background:linear-gradient(135deg, #00FF88, #00CC6A); color:#0A0A0F; border:none; padding:1rem; border-radius:12px; font-size:1rem; font-weight:700; font-family:'Space Grotesk',sans-serif; cursor:pointer; transition:all 0.3s ease; box-shadow:0 0 20px rgba(0,255,136,0.3); margin-top:0.5rem;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 0 30px rgba(0,255,136,0.5)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 0 20px rgba(0,255,136,0.3)'">Получить бесплатную консультацию →</button>
+          <p style="color:rgba(255,255,255,0.3); font-size:0.75rem; text-align:center; margin:0; line-height:1.5;">🔒 Никакого спама. Только один звонок от нас в удобное для вас время.</p>
+        </form>
+      </div>
+      <!-- Прямой контакт -->
+      <div style="text-align:center; margin-top:2rem;">
+        <p style="color:var(--text-secondary); font-size:0.85rem; margin-bottom:0.75rem;">или напишите напрямую прямо сейчас:</p>
+        <a href="https://t.me/GolodBizAi" target="_blank" style="display:inline-flex; align-items:center; gap:0.5rem; background:rgba(41,168,224,0.1); border:1px solid rgba(41,168,224,0.3); color:#29A8E0; padding:0.6rem 1.5rem; border-radius:50px; text-decoration:none; font-size:0.9rem; font-weight:500; transition:all 0.3s ease;" onmouseover="this.style.background='rgba(41,168,224,0.2)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='rgba(41,168,224,0.1)'; this.style.transform='translateY(0)'">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248-2.04 9.613c-.15.678-.546.843-1.106.524l-3.062-2.256-1.478 1.422c-.163.163-.3.3-.616.3l.22-3.11 5.665-5.116c.246-.22-.054-.342-.382-.122L7.26 14.663l-2.99-.934c-.65-.203-.663-.65.136-.962l11.67-4.5c.54-.196 1.013.132.836.98z"/></svg>
+          @GolodBizAi
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    @media (max-width: 640px) {
+      .benefits-grid { grid-template-columns: 1fr !important; }
+    }
+    
+    /* Calculator styles */
+    .calc-field { margin-bottom: 1.5rem; }
+    .calc-label-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; gap: 0.5rem; }
+    .calc-label { color: var(--text-secondary); font-size: 0.85rem; line-height: 1.4; flex: 1; }
+    .calc-value-badge { background: rgba(0,255,136,0.1); border: 1px solid rgba(0,255,136,0.25); color: #00FF88; padding: 0.2rem 0.6rem; border-radius: 8px; font-size: 0.82rem; font-weight: 600; font-family: 'Space Grotesk', sans-serif; white-space: nowrap; flex-shrink: 0; }
+    .calc-slider { width: 100%; -webkit-appearance: none; appearance: none; height: 6px; border-radius: 3px; background: rgba(255,255,255,0.1); outline: none; cursor: pointer; }
+    .calc-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 20px; height: 20px; border-radius: 50%; background: #00FF88; cursor: pointer; box-shadow: 0 0 8px rgba(0,255,136,0.6); transition: box-shadow 0.2s ease; }
+    .calc-slider::-webkit-slider-thumb:hover { box-shadow: 0 0 16px rgba(0,255,136,0.9); }
+    .calc-slider::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: #00FF88; cursor: pointer; border: none; box-shadow: 0 0 8px rgba(0,255,136,0.6); }
+    .calc-range-hints { display: flex; justify-content: space-between; margin-top: 0.3rem; }
+    .calc-range-hints span { color: rgba(255,255,255,0.2); font-size: 0.72rem; }
+    @media (max-width: 768px) { .calc-grid { grid-template-columns: 1fr !important; } }
+  </style>
+
+  <!-- SERVICES SECTION -->
+  <section id="services" style="padding: 5rem 0; background: var(--bg-secondary);">
+    <div class="container">
+
+      <div style="text-align:center; margin-bottom:3rem;">
+        <span class="section-label">Услуги</span>
+        <h2 style="font-size: clamp(28px, 4vw, 36px); margin: 12px 0;">Что мы делаем</h2>
+        <p style="
+          color: var(--text-secondary);
+          max-width: 550px;
+          margin: 1rem auto 0;
+          line-height: 1.7;
+          font-size: 16px;
+        ">
+          От идеи до работающего продукта — полный цикл
+        </p>
+      </div>
+
+      <div style="
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+      " class="services-grid">
+
+        <!-- 1. Автоматизация -->
+        <div class="service-card">
+          <div class="service-icon" style="background: rgba(124,58,237,0.15);">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="#7C3AED">
+              <path d="M12 2a10 10 0 100 20A10 10 0 0012 2zm0 18a8 8 0 110-16 8 8 0 010 16zm-1-5h2v2h-2v-2zm0-8h2v6h-2V7z"/>
+            </svg>
+          </div>
+          <h3 class="service-title">Автоматизация процессов</h3>
+          <p class="service-desc">
+            Настраиваем n8n, Make и другие инструменты. Рутинные задачи работают сами — без людей и ошибок
+          </p>
+          <ul class="service-list">
+            <li>Боты для соцсетей и мессенджеров</li>
+            <li>Интеграция сервисов между собой</li>
+            <li>Автоматические уведомления</li>
+            <li>Обработка заявок 24/7</li>
+          </ul>
+        </div>
+
+        <!-- 2. Разработка -->
+        <div class="service-card">
+          <div class="service-icon" style="background: rgba(16,185,129,0.15);">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="#10B981">
+              <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/>
+            </svg>
+          </div>
+          <h3 class="service-title">Разработка под ключ</h3>
+          <p class="service-desc">
+            Создаём уникальные приложения и сайты под конкретные задачи вашего бизнеса
+          </p>
+          <ul class="service-list">
+            <li>Веб-приложения и сайты</li>
+            <li>Мобильные приложения</li>
+            <li>Корпоративные системы</li>
+            <li>API и бэкенд решения</li>
+          </ul>
+        </div>
+
+        <!-- 3. Маркетплейсы -->
+        <div class="service-card">
+          <div class="service-icon" style="background: rgba(245,158,11,0.15);">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="#F59E0B">
+              <path d="M19 6H17V5a3 3 0 00-6 0v1H9a1 1 0 00-1 1v13a1 1 0 001 1h10a1 1 0 001-1V7a1 1 0 00-1-1zm-6-1a1 1 0 012 0v1h-2V5zm5 14H10V8h1v1a1 1 0 002 0V8h1v1a1 1 0 002 0V8h1v11z"/>
+            </svg>
+          </div>
+          <h3 class="service-title">Работа с маркетплейсами</h3>
+          <p class="service-desc">
+            Автоматизируем управление товарами, ценами и остатками на всех площадках
+          </p>
+          <ul class="service-list">
+            <li>Синхронизация остатков</li>
+            <li>Мониторинг цен конкурентов</li>
+            <li>Авто-ответы на отзывы</li>
+            <li>Аналитика продаж</li>
+          </ul>
+        </div>
+
+        <!-- 4. Лидогенерация -->
+        <div class="service-card">
+          <div class="service-icon" style="background: rgba(239,68,68,0.15);">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="#EF4444">
+              <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+            </svg>
+          </div>
+          <h3 class="service-title">Лидогенерация</h3>
+          <p class="service-desc">
+            Выстраиваем системы привлечения клиентов которые работают автоматически
+          </p>
+          <ul class="service-list">
+            <li>Воронки продаж под ключ</li>
+            <li>Автоматические прогрев-цепочки</li>
+            <li>Квалификация лидов через AI</li>
+            <li>Интеграция с CRM</li>
+          </ul>
+        </div>
+
+        <!-- 5. Аналитика -->
+        <div class="service-card">
+          <div class="service-icon" style="background: rgba(6,182,212,0.15);">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="#06B6D4">
+              <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+            </svg>
+          </div>
+          <h3 class="service-title">Аналитика и отчётность</h3>
+          <p class="service-desc">
+            Превращаем данные в понятные дашборды и автоматические отчёты для принятия решений
+          </p>
+          <ul class="service-list">
+            <li>Дашборды реального времени</li>
+            <li>Авто-отчёты в Telegram</li>
+            <li>Сбор данных из всех источников</li>
+            <li>Визуализация KPI</li>
+          </ul>
+        </div>
+
+        <!-- 6. Парсинг -->
+        <div class="service-card">
+          <div class="service-icon" style="background: rgba(124,58,237,0.15);">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="#7C3AED">
+              <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+            </svg>
+          </div>
+          <h3 class="service-title">Парсинг и сбор данных</h3>
+          <p class="service-desc">
+            Собираем и структурируем данные с любых источников автоматически
+          </p>
+          <ul class="service-list">
+            <li>Парсинг сайтов и маркетплейсов</li>
+            <li>Мониторинг конкурентов</li>
+            <li>Сбор контактных баз</li>
+            <li>Структурирование данных через AI</li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PLATFORMS SECTION -->
+  <section id="platforms" style="padding: 5rem 0;">
+    <div class="container">
+
+      <div style="text-align:center; margin-bottom:3rem;">
+        <span class="section-label">Платформы</span>
+        <h2 style="font-size: clamp(28px, 4vw, 36px); margin: 12px 0;">Работаем там где ваш бизнес</h2>
+        <p style="
+          color: var(--text-secondary);
+          max-width: 550px;
+          margin: 1rem auto 0;
+          line-height: 1.7;
+          font-size: 16px;
+        ">
+          Подключаемся к любой платформе которую вы уже используете — ничего менять не нужно
+        </p>
+      </div>
+
+      <!-- БЛОК 1: Соцсети и мессенджеры -->
+      <p style="
+        color: var(--text-secondary);
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: 1rem;
+        padding-left: 0.25rem;
+      ">Соцсети и мессенджеры</p>
+
+      <div style="
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      " class="platforms-grid">
+
+        <!-- Telegram -->
+        <div class="platform-card" onclick="openPlatformModal('telegram')" style="cursor:pointer;">
+          <div class="platform-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="#29A8E0">
+              <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248-2.04 9.613c-.15.678-.546.843-1.106.524l-3.062-2.256-1.478 1.422c-.163.163-.3.3-.616.3l.22-3.11 5.665-5.116c.246-.22-.054-.342-.382-.122L7.26 14.663l-2.99-.934c-.65-.203-.663-.65.136-.962l11.67-4.5c.54-.196 1.013.132.836.98z"/>
+            </svg>
+          </div>
+          <div class="platform-name">Telegram</div>
+          <div class="platform-desc">Боты, рассылки, уведомления</div>
+        </div>
+
+        <!-- VK -->
+        <div class="platform-card" onclick="openPlatformModal('vk')" style="cursor:pointer;">
+          <div class="platform-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="#0077FF">
+              <path d="M12.785 16.241s.288-.032.436-.194c.136-.148.132-.427.132-.427s-.02-1.304.585-1.496c.597-.19 1.364 1.26 2.179 1.815.615.422 1.082.33 1.082.33l2.17-.03s1.137-.071.598-1.966c-.044-.145-.313-.661-1.583-1.869-1.329-1.262-1.151-1.057.449-3.239.972-1.295 1.36-2.086 1.238-2.424-.116-.323-.83-.238-.83-.238l-2.44.015s-.181-.025-.315.056c-.132.079-.216.265-.216.265s-.377 1.006-.88 1.86c-1.059 1.802-1.482 1.898-1.655 1.786-.402-.261-.302-1.045-.302-1.602 0-1.742.264-2.468-.514-2.657-.258-.063-.447-.104-1.106-.111-.847-.009-1.564.003-1.969.202-.27.132-.478.427-.351.443.157.019.513.096.702.354.243.333.234 1.083.234 1.083s.139 2.05-.325 2.307c-.319.173-.757-.18-1.697-1.803-.483-.836-.848-1.76-.848-1.76s-.07-.181-.2-.278c-.156-.117-.374-.154-.374-.154l-2.319.015s-.348.01-.476.161C2.35 8.148 2.46 8.46 2.46 8.46s1.815 4.25 3.872 6.395 1.889 1.927 3.592 1.799l.87-.012z"/>
+            </svg>
+          </div>
+          <div class="platform-name">ВКонтакте</div>
+          <div class="platform-desc">Сообщества, боты, заявки</div>
+        </div>
+
+        <!-- Instagram -->
+        <div class="platform-card" onclick="openPlatformModal('instagram')" style="cursor:pointer;">
+          <div class="platform-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="#E1306C">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+            </svg>
+          </div>
+          <div class="platform-name">Instagram</div>
+          <div class="platform-desc">Direct боты, обработка</div>
+        </div>
+
+        <!-- TikTok -->
+        <div class="platform-card" onclick="openPlatformModal('tiktok')" style="cursor:pointer;">
+          <div class="platform-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="white">
+              <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.78a4.85 4.85 0 01-1.01-.09z"/>
+            </svg>
+          </div>
+          <div class="platform-name">TikTok</div>
+          <div class="platform-desc">Автоответы, лидогенерация</div>
+        </div>
+
+      </div>
+
+      <!-- БЛОК 2: Маркетплейсы -->
+      <p style="
+        color: var(--text-secondary);
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: 1rem;
+        margin-top: 2rem;
+        padding-left: 0.25rem;
+      ">Маркетплейсы и площадки</p>
+
+      <div style="
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      " class="platforms-grid">
+
+        <!-- Авито -->
+        <div class="platform-card" onclick="openPlatformModal('avito')" style="cursor:pointer;">
+          <div class="platform-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+              <rect width="24" height="24" rx="6" fill="rgba(0,160,60,0.15)"/>
+              <text x="12" y="17" text-anchor="middle" font-size="11" font-weight="900" font-family="Arial Black" fill="#00A03C">AVT</text>
+            </svg>
+          </div>
+          <div class="platform-name">Авито</div>
+          <div class="platform-desc">Парсинг, автоответы</div>
+        </div>
+
+        <!-- Ozon -->
+        <div class="platform-card" onclick="openPlatformModal('ozon')" style="cursor:pointer;">
+          <div class="platform-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+              <rect width="24" height="24" rx="6" fill="rgba(0,91,255,0.15)"/>
+              <text x="12" y="17" text-anchor="middle" font-size="12" font-weight="900" font-family="Arial Black" fill="#005BFF">OZN</text>
+            </svg>
+          </div>
+          <div class="platform-name">Ozon</div>
+          <div class="platform-desc">Управление, аналитика</div>
+        </div>
+
+        <!-- Wildberries -->
+        <div class="platform-card" onclick="openPlatformModal('wildberries')" style="cursor:pointer;">
+          <div class="platform-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+              <rect width="24" height="24" rx="6" fill="rgba(148,0,211,0.15)"/>
+              <text x="12" y="17" text-anchor="middle" font-size="12" font-weight="900" font-family="Arial Black" fill="#9400D3">WB</text>
+            </svg>
+          </div>
+          <div class="platform-name">Wildberries</div>
+          <div class="platform-desc">Остатки, цены, отчёты</div>
+        </div>
+
+        <!-- Яндекс Маркет -->
+        <div class="platform-card" onclick="openPlatformModal('market')" style="cursor:pointer;">
+          <div class="platform-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+              <rect width="24" height="24" rx="6" fill="rgba(255,204,0,0.15)"/>
+              <text x="12" y="17" text-anchor="middle" font-size="12" font-weight="900" font-family="Arial Black" fill="#FFCC00">ЯМ</text>
+            </svg>
+          </div>
+          <div class="platform-name">Я.Маркет</div>
+          <div class="platform-desc">Синхронизация, аналитика</div>
+        </div>
+
+      </div>
+
+      <!-- БЛОК 3: Сервисы и инфраструктура -->
+      <p style="
+        color: var(--text-secondary);
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: 1rem;
+        margin-top: 2rem;
+        padding-left: 0.25rem;
+      ">Сервисы и инфраструктура</p>
+
+      <div style="
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+      " class="platforms-grid">
+
+        <!-- Email -->
+        <div class="platform-card" onclick="openPlatformModal('email')" style="cursor:pointer;">
+          <div class="platform-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="#EA4335">
+              <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 010 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L12 9.641l8.073-6.148C21.69 2.28 24 3.434 24 5.457z"/>
+            </svg>
+          </div>
+          <div class="platform-name">Email</div>
+          <div class="platform-desc">Рассылки, парсинг, воронки</div>
+        </div>
+
+        <!-- Облако -->
+        <div class="platform-card" onclick="openPlatformModal('cloud')" style="cursor:pointer;">
+          <div class="platform-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="#4285F4">
+              <path d="M19.35 10.04A7.49 7.49 0 0012 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 000 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/>
+            </svg>
+          </div>
+          <div class="platform-name">Облако</div>
+          <div class="platform-desc">Google, Яндекс, AWS, VK Cloud</div>
+        </div>
+
+        <!-- CRM -->
+        <div class="platform-card" onclick="openPlatformModal('crm')" style="cursor:pointer;">
+          <div class="platform-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="#7C3AED">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>
+            </svg>
+          </div>
+          <div class="platform-name">CRM</div>
+          <div class="platform-desc">amoCRM, Bitrix24, 1С</div>
+        </div>
+
+        <!-- API -->
+        <div class="platform-card" onclick="openPlatformModal('api')" style="cursor:pointer;">
+          <div class="platform-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="#10B981">
+              <path d="M8.5 8.5L3 12l5.5 3.5v-2H13v-3H8.5v-1.5zM21 12l-5.5-3.5v2H11v3h4.5V15L21 12z"/>
+            </svg>
+          </div>
+          <div class="platform-name">Любой API</div>
+          <div class="platform-desc">Интеграция с любым сервисом</div>
+        </div>
+
+      </div>
+
+      <!-- Нижняя подпись -->
+      <div style="
+        text-align: center;
+        margin-top: 2.5rem;
+        padding: 1.25rem 2rem;
+        background: rgba(124,58,237,0.05);
+        border: 1px solid rgba(124,58,237,0.15);
+        border-radius: 16px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      ">
+        <p style="
+          color: var(--text-secondary);
+          font-size: 0.875rem;
+          margin: 0;
+          line-height: 1.6;
+        ">
+          ⚡ Не видите свою платформу? <a href="#contact" style="color:#7C3AED; text-decoration:none;">Напишите нам</a> — подключимся к любому сервису у которого есть API
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ABOUT SECTION -->
+  <section class="about-section" id="about" style="
+    background: var(--bg-primary);
+    padding: var(--section-padding) 0;
+  ">
+    <div class="container">
+      <!-- Section Header -->
+      <div class="section-header" style="text-align: center; margin-bottom: 60px;">
+        <span class="section-label" style="
+          display: inline-block;
+          font-size: 13px;
+          color: var(--neon-green);
+          background: rgba(0,255,136,0.1);
+          border: 1px solid rgba(0,255,136,0.3);
+          padding: 0.35rem 1rem;
+          border-radius: 50px;
+          font-weight: 600;
+          letter-spacing: 0.05em;
+          text-transform: uppercase;
+          margin-bottom: 12px;
+        ">О КОМПАНИИ</span>
+        <h2 class="section-title" style="font-size: clamp(32px, 4vw, 48px); margin-bottom: 16px;">
+          Кто мы и почему нам доверяют
+        </h2>
+        <p class="section-subtitle" style="
+          font-size: 18px;
+          color: var(--text-secondary);
+          max-width: 600px;
+          margin: 0 auto;
+        ">
+          Мы не просто разработчики — мы партнёры в автоматизации вашего бизнеса
+        </p>
+      </div>
+
+      <!-- About Content Grid -->
+      <div style="
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+        margin-bottom: 80px;
+      ">
+        <!-- Left Column: Text -->
+        <div>
+          <h3 style="
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+          ">
+            SupBizAI — это команда экспертов в автоматизации с AI
+          </h3>
+          <p style="
+            color: var(--text-secondary);
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 16px;
+          ">
+            Мы специализируемся на внедрении искусственного интеллекта и no-code решений для бизнеса любого масштаба. Наша миссия — освободить ваше время от рутины, чтобы вы могли сосредоточиться на развитии.
+          </p>
+          <p style="
+            color: var(--text-secondary);
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 16px;
+          ">
+            Используем передовые инструменты: <strong style="color: var(--accent-purple-light);">n8n, Make, Claude, Qwen, Python</strong> — и создаём индивидуальные решения под ваши задачи.
+          </p>
+          <p style="
+            color: var(--text-secondary);
+            font-size: 16px;
+            line-height: 1.7;
+          ">
+            За нашими плечами — десятки успешных проектов: от чат-ботов для социальных сетей до комплексных систем управления предприятием.
+          </p>
+        </div>
+
+        <!-- Right Column: Stats Cards -->
+        <div style="
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 20px;
+        ">
+          <div style="
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+          ">
+            <div style="
+              font-size: 36px;
+              font-weight: 700;
+              color: var(--accent-green);
+              font-family: var(--font-heading);
+              margin-bottom: 8px;
+            ">50+</div>
+            <div style="
+              font-size: 14px;
+              color: var(--text-muted);
+            ">Проектов автоматизировано</div>
+          </div>
+          <div style="
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+          ">
+            <div style="
+              font-size: 36px;
+              font-weight: 700;
+              color: var(--accent-green);
+              font-family: var(--font-heading);
+              margin-bottom: 8px;
+            ">85%</div>
+            <div style="
+              font-size: 14px;
+              color: var(--text-muted);
+            ">Экономия времени клиентов</div>
+          </div>
+          <div style="
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+          ">
+            <div style="
+              font-size: 36px;
+              font-weight: 700;
+              color: var(--accent-green);
+              font-family: var(--font-heading);
+              margin-bottom: 8px;
+            ">24/7</div>
+            <div style="
+              font-size: 14px;
+              color: var(--text-muted);
+            ">Работа наших решений</div>
+          </div>
+          <div style="
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+          ">
+            <div style="
+              font-size: 36px;
+              font-weight: 700;
+              color: var(--accent-green);
+              font-family: var(--font-heading);
+              margin-bottom: 8px;
+            ">0</div>
+            <div style="
+              font-size: 14px;
+              color: var(--text-muted);
+            ">Потерь заявок</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- What We Do -->
+      <div style="
+        background: var(--bg-secondary);
+        border-radius: 20px;
+        padding: 40px;
+        margin-bottom: 60px;
+      ">
+        <h3 style="
+          font-size: 24px;
+          margin-bottom: 32px;
+          text-align: center;
+        ">Что мы делаем</h3>
+        <div style="
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 24px;
+        ">
+          <div style="
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+          ">
+            <div style="
+              width: 24px;
+              height: 24px;
+              background: rgba(124, 58, 237, 0.15);
+              border-radius: 6px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              flex-shrink: 0;
+            ">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent-purple-light);">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <div>
+              <div style="font-weight: 600; margin-bottom: 4px;">AI-чат-боты</div>
+              <div style="font-size: 14px; color: var(--text-muted);">Telegram, WhatsApp, VK</div>
+            </div>
+          </div>
+          <div style="
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+          ">
+            <div style="
+              width: 24px;
+              height: 24px;
+              background: rgba(124, 58, 237, 0.15);
+              border-radius: 6px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              flex-shrink: 0;
+            ">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent-purple-light);">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <div>
+              <div style="font-weight: 600; margin-bottom: 4px;">Интеграции</div>
+              <div style="font-size: 14px; color: var(--text-muted);">CRM, ERP, таблицы, API</div>
+            </div>
+          </div>
+          <div style="
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+          ">
+            <div style="
+              width: 24px;
+              height: 24px;
+              background: rgba(124, 58, 237, 0.15);
+              border-radius: 6px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              flex-shrink: 0;
+            ">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent-purple-light);">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <div>
+              <div style="font-weight: 600; margin-bottom: 4px;">Автоматизация</div>
+              <div style="font-size: 14px; color: var(--text-muted);">Бизнес-процессы под ключ</div>
+            </div>
+          </div>
+          <div style="
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+          ">
+            <div style="
+              width: 24px;
+              height: 24px;
+              background: rgba(124, 58, 237, 0.15);
+              border-radius: 6px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              flex-shrink: 0;
+            ">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent-purple-light);">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <div>
+              <div style="font-weight: 600; margin-bottom: 4px;">Лидогенерация</div>
+              <div style="font-size: 14px; color: var(--text-muted);">Привлечение клиентов</div>
+            </div>
+          </div>
+          <div style="
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+          ">
+            <div style="
+              width: 24px;
+              height: 24px;
+              background: rgba(124, 58, 237, 0.15);
+              border-radius: 6px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              flex-shrink: 0;
+            ">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent-purple-light);">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <div>
+              <div style="font-weight: 600; margin-bottom: 4px;">Аналитика</div>
+              <div style="font-size: 14px; color: var(--text-muted);">Отчёты и дашборды</div>
+            </div>
+          </div>
+          <div style="
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+          ">
+            <div style="
+              width: 24px;
+              height: 24px;
+              background: rgba(124, 58, 237, 0.15);
+              border-radius: 6px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              flex-shrink: 0;
+            ">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent-purple-light);">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <div>
+              <div style="font-weight: 600; margin-bottom: 4px;">Поддержка</div>
+              <div style="font-size: 14px; color: var(--text-muted);">Сопровождение 24/7</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA Block -->
+      <div style="
+        background: linear-gradient(135deg, rgba(124, 58, 237, 0.15), rgba(59, 130, 246, 0.15));
+        border: 1px solid rgba(124, 58, 237, 0.3);
+        border-radius: 20px;
+        padding: 40px;
+        text-align: center;
+      ">
+        <h3 style="
+          font-size: 28px;
+          margin-bottom: 16px;
+        ">Готовы автоматизировать свой бизнес?</h3>
+        <p style="
+          color: var(--text-secondary);
+          font-size: 16px;
+          margin-bottom: 32px;
+          max-width: 600px;
+          margin-left: auto;
+          margin-right: auto;
+        ">
+          Получите бесплатный аудит процессов — покажем что можно автоматизировать уже сейчас
+        </p>
+        <a href="#contact" class="btn btn-primary" style="
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 14px 28px;
+          background: linear-gradient(135deg, var(--neon-green), #00CC6A);
+          color: #0A0A0F;
+          font-weight: 700;
+          border-radius: 10px;
+          font-size: 16px;
+          box-shadow: 0 0 20px rgba(0,255,136,0.4), 0 4px 15px rgba(0,255,136,0.2);
+          transition: all 0.3s ease;
+        " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 0 30px rgba(0,255,136,0.6), 0 6px 20px rgba(0,255,136,0.3)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 0 20px rgba(0,255,136,0.4), 0 4px 15px rgba(0,255,136,0.2)'">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+          </svg>
+          Получить бесплатный аудит
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <div style="margin-bottom:0.75rem; display: flex; align-items: center; gap: 10px;">
+            <img src="logo.png" alt="SupBizAI" style="height: 128px; width: auto; filter: drop-shadow(0 0 30px rgba(0,255,136,1));">
+            <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 900; font-size: 1.6rem; letter-spacing: -0.5px;"><span style="color: #fff;">Sup</span><span style="color: #00FF88; text-shadow: 0 0 20px rgba(0,255,136,0.8);">BizAI</span></span>
+          </div>
+          <div class="footer-slogan">
+            Автоматизируем бизнес — <span style="color: #00FF88; text-shadow: 0 0 8px rgba(0,255,136,0.5);">вы зарабатываете больше</span>
+          </div>
+        </div>
+        
+        <div class="footer-links">
+          <a href="#pain" class="footer-link">Боли</a>
+          <a href="#how" class="footer-link">Процесс</a>
+          <a href="#cases" class="footer-link">Кейсы</a>
+          <a href="#contact" class="footer-link">Контакты</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        © 2026 SupBizAI. Все права защищены.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Ждём полной загрузки DOM
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // ============================================
+      // LUCIDE ICONS INIT
+      // ============================================
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      } else {
+        console.warn('Lucide icons not loaded');
+      }
+
+      // ============================================
+      // HERO PARTICLES
+      // ============================================
+      const particlesContainer = document.getElementById('heroParticles');
+      const particleCount = 30;
+
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'hero-particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 4 + 's';
+        particle.style.opacity = Math.random() * 0.5 + 0.2;
+        particlesContainer.appendChild(particle);
+      }
+
+      // ============================================
+      // NAVIGATION
+      // ============================================
+      const nav = document.getElementById('nav');
+      const navBurger = document.getElementById('navBurger');
+      const navMenu = document.getElementById('navMenu');
+
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+          nav.classList.add('scrolled');
+        } else {
+          nav.classList.remove('scrolled');
+        }
+      });
+
+      navBurger.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+      });
+
+      // Close menu on link click
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+          navMenu.classList.remove('active');
+        });
+      });
+
+      // ============================================
+      // SCROLL ANIMATIONS
+      // ============================================
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('.animate-on-scroll').forEach(el => {
+        observer.observe(el);
+      });
+
+      // ============================================
+      // TIMELINE ANIMATION
+      // ============================================
+      const timelineProgress = document.getElementById('timelineProgress');
+      const timelineItems = document.querySelectorAll('.timeline-item');
+
+      const timelineObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+
+            // Update progress line
+            const firstItem = timelineItems[0];
+            const lastItem = timelineItems[timelineItems.length - 1];
+
+            if (entry.target === lastItem) {
+              timelineProgress.style.height = '100%';
+            } else if (entry.target === firstItem) {
+              timelineProgress.style.height = '0%';
+            }
+          }
+        });
+      }, { threshold: 0.5 });
+
+      timelineItems.forEach(item => {
+        timelineObserver.observe(item);
+      });
+      // ============================================
+      // CALCULATOR
+      // ============================================
+      function calcFillSlider(slider) {
+        const min = +slider.min;
+        const max = +slider.max;
+        const val = +slider.value;
+        const pct = ((val - min) / (max - min)) * 100;
+        slider.style.setProperty('--fill', pct + '%');
+      }
+
+      function formatMoney(n) {
+        return Math.round(n).toLocaleString('ru-RU') + ' ₽';
+      }
+
+      function animateValue(el, newVal, duration = 400) {
+        const start = parseInt(el.textContent.replace(/\D/g, '')) || 0;
+        const end = Math.round(newVal);
+        const startTime = performance.now();
+
+        function update(currentTime) {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const current = Math.round(start + (end - start) * eased);
+          el.textContent = formatMoney(current);
+          if (progress < 1) requestAnimationFrame(update);
+        }
+        requestAnimationFrame(update);
+      }
+
+      function updateCalculator() {
+        const employees  = +document.getElementById('employees').value;
+        const salary     = +document.getElementById('salary').value;
+        const workHours  = +document.getElementById('workhours').value;
+        const routineH   = +document.getElementById('routinehours').value;
+        const workDays   = +document.getElementById('workdays').value;
+
+        // Защита: рутина не может быть больше рабочих часов
+        const routineSlider = document.getElementById('routinehours');
+        if (routineH > workHours) {
+          routineSlider.value = workHours;
+          document.getElementById('val-routinehours').textContent = workHours + ' часов';
+        }
+        const actualRoutine = Math.min(routineH, workHours);
+
+        // ФОРМУЛЫ
+        const hourlyRate = salary / (workHours * workDays);
+        const routineCostPerPerson = hourlyRate * actualRoutine * workDays;
+        const monthlyLoss = routineCostPerPerson * employees;
+        const yearlyLoss = monthlyLoss * 12;
+        const savings = yearlyLoss * 0.85;
+        const routinePercent = Math.round((actualRoutine / workHours) * 100);
+
+        // ОБНОВЛЕНИЕ ЗНАЧЕНИЙ СЛАЙДЕРОВ
+        document.getElementById('val-employees').textContent = employees + (employees === 1 ? ' человек' : employees < 5 ? ' человека' : ' человек');
+        document.getElementById('val-salary').textContent = formatMoney(salary);
+        document.getElementById('val-workhours').textContent = workHours + ' ' + (workHours === 1 ? 'час' : workHours < 5 ? 'часа' : 'часов');
+        document.getElementById('val-routinehours').textContent = actualRoutine + ' ' + (actualRoutine === 1 ? 'час' : actualRoutine < 5 ? 'часа' : 'часов');
+        document.getElementById('val-workdays').textContent = workDays + ' ' + (workDays === 21 ? 'день' : workDays < 25 ? 'дня' : 'дней');
+
+        // ОБНОВЛЕНИЕ РЕЗУЛЬТАТОВ
+        document.getElementById('res-hourly-cost').textContent = formatMoney(hourlyRate);
+        animateValue(document.getElementById('res-monthly'), monthlyLoss);
+        animateValue(document.getElementById('res-yearly'), yearlyLoss);
+        animateValue(document.getElementById('res-savings'), savings);
+
+        document.getElementById('res-monthly').setAttribute('data-calc', 'monthly');
+        document.getElementById('res-savings').setAttribute('data-calc', 'savings');
+
+        document.getElementById('res-percent').textContent = routinePercent + '%';
+        document.getElementById('res-progress').style.width = routinePercent + '%';
+
+        // Цвет прогресс-бара
+        const bar = document.getElementById('res-progress');
+        if (routinePercent < 25) {
+          bar.style.background = 'linear-gradient(90deg, #10B981, #059669)';
+        } else if (routinePercent < 50) {
+          bar.style.background = 'linear-gradient(90deg, #F59E0B, #D97706)';
+        } else {
+          bar.style.background = 'linear-gradient(90deg, #EF4444, #DC2626)';
+          bar.style.boxShadow = '0 0 8px rgba(239,68,68,0.5)';
+        }
+
+        document.getElementById('res-monthly-desc').textContent = `платите ${employees} сотр. за ${actualRoutine}ч рутины в день`;
+        document.getElementById('res-yearly-desc').textContent = `или ${Math.round(yearlyLoss/salary)} месячных зарплат в год`;
+
+        document.querySelectorAll('.calc-slider').forEach(calcFillSlider);
+      }
+
+      ['employees','salary','workhours','routinehours','workdays'].forEach(id => {
+        const slider = document.getElementById(id);
+        slider.addEventListener('input', updateCalculator);
+        calcFillSlider(slider);
+      });
+
+      updateCalculator();
+
+      // ============================================
+      // CTA FORM — TELEGRAM INTEGRATION
+      // ============================================
+      // ============ TELEGRAM INTEGRATION ============
+      const TELEGRAM_BOT_TOKEN = '8766127276:AAGl9J3OEF1ENbV_uYIQFfWSAqSqTe_k-lk';
+      const TELEGRAM_CHAT_ID = '8464652226';
+
+      async function sendToTelegram(name, phone, social, business) {
+        const now = new Date().toLocaleString('ru-RU', {
+          timeZone: 'Europe/Moscow',
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+
+        const employees = document.querySelector('[data-calc="employees"]')?.textContent || '—';
+        const savings = document.querySelector('[data-calc="savings"]')?.textContent || '—';
+
+        const socialText = social ? `\n📱 *Telegram/VK:* ${social}` : '';
+        const businessText = business ? `\n📝 *Бизнес/задача:*\n${business}` : '';
+
+        const message = `
+🔥 *НОВАЯ ЗАЯВКА — SupBizAI*
+
+👤 *Имя:* ${name}
+📞 *Телефон:* ${phone}${socialText}${businessText}
+🕐 *Время:* ${now}
+
+💰 *Калькулятор:*
+• Сотрудников: ${employees}
+• Потенциальная экономия: ${savings}/год
+
+📍 Источник: сайт supbizai.com
+        `.trim();
+
+        const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: TELEGRAM_CHAT_ID,
+            text: message,
+            parse_mode: 'Markdown'
+          })
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(`Telegram API error: ${errorData.description || response.status}`);
+        }
+
+        return response.ok;
+      }
+
+      // Обработчик формы
+      document.getElementById('contactForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const name = document.getElementById('formName').value.trim();
+        const phone = document.getElementById('formPhone').value.trim();
+        const social = document.getElementById('formSocial').value.trim();
+        const business = document.getElementById('formBusiness').value.trim();
+        const btn = document.getElementById('submitBtn');
+
+        if (!name || !phone) return;
+
+        btn.textContent = 'Отправляем...';
+        btn.disabled = true;
+        btn.style.opacity = '0.7';
+
+        try {
+          if (TELEGRAM_BOT_TOKEN && TELEGRAM_CHAT_ID) {
+            await sendToTelegram(name, phone, social, business);
+          }
+
+          this.innerHTML = `
+            <div style="text-align:center; padding:2rem 0;">
+              <div style="font-size:3rem; margin-bottom:1rem">✅</div>
+              <h3 style="color:#00FF88; font-size:1.3rem; margin-bottom:0.5rem; text-shadow: 0 0 10px rgba(0,255,136,0.5);">Заявка принята!</h3>
+              <p style="color:#A1A1AA; margin-bottom:0.5rem;">Свяжемся с вами в течение 2 часов</p>
+              <p style="color:rgba(255,255,255,0.3); font-size:0.8rem;">Пока ждёте — посмотрите наши кейсы 😊</p>
+            </div>
+          `;
+
+        } catch(err) {
+          btn.textContent = 'Получить бесплатную консультацию →';
+          btn.disabled = false;
+          btn.style.opacity = '1';
+        }
+      });
+      // ============ END TELEGRAM INTEGRATION ============
+
+      // ============================================
+      // SMOOTH SCROLL FOR ANCHOR LINKS
+      // ============================================
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        });
+      });
+
+      // ============================================
+      // ANALYTICS TRACKING
+      // ============================================
+      // Отслеживание ключевых действий (для Яндекс Метрики и отладки)
+      function trackEvent(eventName, params = {}) {
+        // Яндекс Метрика
+        if (typeof ym !== 'undefined') {
+          ym(107289831, 'reachGoal', eventName, params);
+        }
+        // Console для отладки
+        console.log('📊 Event:', eventName, params);
+      }
+
+      // Клик по кнопке "Получить аудит"
+      document.querySelectorAll('[href="#contact"], .btn-primary[href="#contact"]').forEach(btn => {
+        btn.addEventListener('click', () => trackEvent('click_audit_btn'));
+      });
+
+      // Использование калькулятора
+      document.querySelectorAll('input[type="range"]').forEach(slider => {
+        slider.addEventListener('change', () => {
+          trackEvent('calc_used', {
+            sliderId: slider.id,
+            value: slider.value
+          });
+        });
+      });
+
+      // Клик по floating кнопке Telegram
+      const floatBtn = document.getElementById('floatBtn');
+      if (floatBtn) {
+        floatBtn.addEventListener('click', () => trackEvent('click_telegram_btn'));
+      }
+
+      // Просмотр секций (для анализа вовлечённости)
+      const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && entry.target.id) {
+            trackEvent('section_view', { section: entry.target.id });
+          }
+        });
+      }, { threshold: 0.5 });
+
+      document.querySelectorAll('section[id]').forEach(section => {
+        sectionObserver.observe(section);
+      });
+
+    }); // END DOMContentLoaded
+  </script>
+
+  <!-- FLOATING CONTACT BUTTON -->
+  <div id="floatingContact" style="
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+  ">
+    <!-- Tooltip -->
+    <div id="floatTooltip" style="
+      background: #1A1A28;
+      border: 1px solid rgba(124,58,237,0.3);
+      color: white;
+      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateX(10px);
+      transition: all 0.3s ease;
+      pointer-events: none;
+    ">
+      Написать в Telegram
+    </div>
+    
+    <!-- Кнопка -->
+    <a href="https://t.me/GolodBizAi" target="_blank"
+       id="floatBtn"
+       style="
+         width: 56px;
+         height: 56px;
+         background: linear-gradient(135deg, var(--neon-green), #00CC6A);
+         border-radius: 50%;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         box-shadow: 0 4px 20px rgba(0,255,136,0.4);
+         cursor: pointer;
+         transition: transform 0.2s ease, box-shadow 0.2s ease;
+         text-decoration: none;
+       "
+       onmouseover="
+         this.style.transform='scale(1.1)';
+         this.style.boxShadow='0 6px 30px rgba(0,255,136,0.6)';
+         document.getElementById('floatTooltip').style.opacity='1';
+         document.getElementById('floatTooltip').style.transform='translateX(0)';
+       "
+       onmouseout="
+         this.style.transform='scale(1)';
+         this.style.boxShadow='0 4px 20px rgba(0,255,136,0.4)';
+         document.getElementById('floatTooltip').style.opacity='0';
+         document.getElementById('floatTooltip').style.transform='translateX(10px)';
+       "
+    >
+      <!-- Telegram SVG иконка -->
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="#0A0A0F">
+        <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-2.04 9.613c-.15.678-.546.843-1.106.524l-3.062-2.256-1.478 1.422c-.163.163-.3.3-.616.3l.22-3.11 5.665-5.116c.246-.22-.054-.342-.382-.122L7.26 14.663l-2.99-.934c-.65-.203-.663-.65.136-.962l11.67-4.5c.54-.196 1.013.132.836.98l-.35.001z"/>
+      </svg>
+
+      <!-- Пульсирующее кольцо -->
+      <span style="
+        position: absolute;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        border: 2px solid rgba(0,255,136,0.5);
+        animation: pulse 2s infinite;
+      "></span>
+    </a>
+  </div>
+
+  <style>
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(1.5); opacity: 0; }
+    }
+    
+    /* Platform card hover indicator */
+    .platform-card::after {
+      content: 'Подробнее →';
+      position: absolute;
+      bottom: 0.75rem;
+      right: 0.75rem;
+      font-size: 0.72rem;
+      color: var(--neon-green);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .platform-card:hover::after {
+      opacity: 1;
+    }
+    
+    /* Modal styles */
+    #platformModal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    #platformModal #platformOverlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(8px);
+      display: none;
+    }
+    #platformModal[style*="display: flex"] #platformOverlay {
+      display: block;
+    }
+    #platformModalContent {
+      position: relative;
+      background: #12121A;
+      border-radius: 24px;
+      padding: 2rem;
+      max-width: 700px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      border: 1px solid rgba(255,255,255,0.1);
+      transform: scale(0.9);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+    @media (max-width: 480px) {
+      #platformModalContent {
+        padding: 1.25rem;
+        max-height: 90vh;
+      }
+    }
+  </style>
+
+  <!-- Модальное окно платформы -->
+  <div id="platformModal">
+    <div id="platformOverlay"></div>
+    <div id="platformModalContent">
+      <!-- Шапка -->
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.5rem;">
+        <div style="display:flex; align-items:center; gap:1rem;">
+          <div id="modalIcon" style="width:48px; height:48px; border-radius:14px; display:flex; align-items:center; justify-content:center;"></div>
+          <div>
+            <h3 id="modalTitle" style="font-family:'Space Grotesk',sans-serif; font-size:1.4rem; font-weight:700; color:white; margin:0 0 0.2rem;"></h3>
+            <p style="color:var(--text-secondary); font-size:0.85rem; margin:0;">Примеры автоматизаций</p>
+          </div>
+        </div>
+        <button id="closeModal" style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:white; width:36px; height:36px; border-radius:10px; cursor:pointer; font-size:1.1rem; display:flex; align-items:center; justify-content:center; transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'">✕</button>
+      </div>
+      <!-- Кейсы -->
+      <div id="modalCases" style="display:flex; flex-direction:column; gap:1rem;"></div>
+      <!-- CTA внизу -->
+      <div style="margin-top:1.5rem; padding:1.25rem; background:rgba(0,255,136,0.05); border:1px solid rgba(0,255,136,0.2); border-radius:16px; text-align:center;">
+        <p style="color:white; font-weight:600; margin-bottom:0.5rem;">Нужна такая автоматизация?</p>
+        <p style="color:var(--text-secondary); font-size:0.85rem; margin-bottom:1rem;">Расскажем как внедрить именно в ваш бизнес — бесплатно</p>
+        <button onclick="closePlatformModal(); document.querySelector('#contact').scrollIntoView({behavior:'smooth'});" style="background:linear-gradient(135deg, #00FF88, #00CC6A); color:#0A0A0F; border:none; padding:0.75rem 2rem; border-radius:50px; font-weight:700; font-size:0.95rem; cursor:pointer; transition:all 0.3s ease; box-shadow:0 0 20px rgba(0,255,136,0.3);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 0 30px rgba(0,255,136,0.5)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 0 20px rgba(0,255,136,0.3)'">Получить бесплатную консультацию →</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Данные платформ
+    const platformsData = {
+      telegram: { name:"Telegram", color:"#29A8E0", cases:[
+        {title:"AI-менеджер продаж", desc:"Бот общается с клиентами как живой менеджер — отвечает на вопросы, квалифицирует лида, записывает на встречу. Работает 24/7 без выходных", result:"Замена 1-2 менеджеров"},
+        {title:"Контент-завод", desc:"Автоматически генерирует и публикует посты в Telegram канал по расписанию. AI пишет тексты, подбирает хештеги, анализирует вовлечённость", result:"50+ постов в месяц"},
+        {title:"Воронка прогрева", desc:"Серия сообщений которая автоматически прогревает холодного лида до покупки. Триггеры по действиям пользователя", result:"+40% конверсия"},
+        {title:"Система уведомлений", desc:"Автоматические алерты о заказах, оплатах, остатках товара, действиях сотрудников — всё в один чат", result:"Владелец всегда в курсе"},
+        {title:"Поддержка клиентов", desc:"Бот отвечает на типовые вопросы, принимает жалобы, передаёт сложные случаи живому оператору с полным контекстом", result:"80% без участия человека"},
+        {title:"Приём оплат", desc:"Бот принимает оплату прямо в Telegram через ЮКасса или Stripe, выдаёт чек и доступ к продукту автоматически", result:"Продажи без сайта"},
+        {title:"Контент-завод полный цикл", desc:"AI анализирует нишу, генерирует контент-план на месяц, пишет посты, адаптирует под каждую платформу и публикует автоматически по расписанию во все соцсети одновременно", result:"Соцсети живут без SMM-менеджера"}
+      ]},
+      vk: { name:"ВКонтакте", color:"#0077FF", cases:[
+        {title:"Автоответы в сообщениях", desc:"Бот мгновенно отвечает на входящие сообщения в группе, квалифицирует клиента и передаёт горячих лидов менеджеру", result:"0 потерянных заявок"},
+        {title:"Контент-завод для группы", desc:"Автоматическая публикация контента по расписанию. AI генерирует посты, истории, опросы для удержания аудитории", result:"Группа живёт без SMM"},
+        {title:"Сбор заявок через VK Forms", desc:"Автоматический сбор заявок из VK форм с мгновенной передачей в CRM и уведомлением менеджера в Telegram", result:"Ни одна заявка не потеряется"},
+        {title:"Рассылка по базе", desc:"Персонализированные рассылки по сегментам аудитории. Триггерные сообщения по действиям пользователя", result:"Open rate 60-80%"},
+        {title:"Мониторинг упоминаний", desc:"Автоматическое отслеживание упоминаний бренда во VKонтакте с мгновенным уведомлением и шаблонами ответов", result:"Репутация под контролем"},
+        {title:"Кросс-постинг контент-завода", desc:"Контент генерируется один раз — AI адаптирует текст, хештеги и формат под ВКонтакте и публикует автоматически. Учитывает алгоритмы и лучшее время для охвата", result:"ВКонтакте растёт без ручной работы"}
+      ]},
+      instagram: { name:"Instagram", color:"#E1306C", cases:[
+        {title:"AI-менеджер в Direct", desc:"Бот обрабатывает входящие сообщения в Instagram Direct — отвечает на вопросы о товарах, ценах, записывает на услуги", result:"0 потерь лидов"},
+        {title:"Контент-завод", desc:"AI создаёт посты, Reels описания, Stories по вашей теме и публикует по расписанию. Анализирует что лучше заходит", result:"Аккаунт активен без SMM"},
+        {title:"Автоответы на комментарии", desc:"Бот отвечает на комментарии под постами, отправляет ссылку или информацию в Direct по ключевым словам", result:"+300% вовлечённость"},
+        {title:"Квалификация лидов", desc:"Когда пользователь пишет в Direct — AI задаёт квалифицирующие вопросы и передаёт только горячих клиентов менеджеру", result:"Менеджер работает с готовыми"},
+        {title:"Воронка через Stories", desc:"Автоматическая цепочка взаимодействий через Stories и Direct для прогрева подписчика до покупки", result:"+35% конверсия"}
+      ]},
+      tiktok: { name:"TikTok", color:"#FFFFFF", cases:[
+        {title:"Автоответы в комментариях", desc:"Бот отслеживает комментарии с ключевыми словами и автоматически отвечает или отправляет ссылку в личку", result:"Каждый получает ответ"},
+        {title:"Контент-план и публикации", desc:"AI анализирует тренды TikTok, генерирует идеи для видео и описания, публикует по расписанию", result:"Системный контент"},
+        {title:"Сбор лидов с TikTok", desc:"Автоматическая обработка запросов из TikTok — перевод заинтересованных в Telegram или на сайт с трекингом", result:"Трафик конвертируется"},
+        {title:"Мониторинг упоминаний", desc:"Отслеживание упоминаний бренда, конкурентов и трендов в нише с ежедневным отчётом", result:"Всегда в курсе"}
+      ]},
+      avito: { name:"Авито", color:"#00A03C", cases:[
+        {title:"Автоответы на сообщения", desc:"Бот мгновенно отвечает покупателям на Авито — отвечает на типовые вопросы, договаривается о просмотре", result:"Ответ за 3 сек"},
+        {title:"Автоподнятие объявлений", desc:"Система автоматически поднимает объявления в нужное время для максимального охвата по расписанию", result:"+200% просмотров"},
+        {title:"Парсинг конкурентов", desc:"Ежедневный сбор цен и объявлений конкурентов на Авито с автоматическим отчётом и рекомендациями", result:"Всегда конкурентная цена"},
+        {title:"Массовое управление", desc:"Автоматическое создание, обновление и управление сотнями объявлений из одной таблицы", result:"1 человек = 500+ объявлений"},
+        {title:"Интеграция с CRM", desc:"Все обращения с Авито автоматически попадают в CRM с тегами, историей и напоминаниями", result:"Лиды не теряются"}
+      ]},
+      ozon: { name:"Ozon", color:"#005BFF", cases:[
+        {title:"Управление ценами", desc:"Автоматическое изменение цен на основе цен конкурентов, остатков и спроса. Репрайсер работает круглосуточно", result:"+15-25% маржинальность"},
+        {title:"Синхронизация остатков", desc:"Автоматическая синхронизация складских остатков между Ozon, 1С и другими маркетплейсами", result:"0 отменённых заказов"},
+        {title:"Аналитика продаж", desc:"Ежедневный автоматический отчёт по продажам, возвратам, рейтингу и рекламе в Telegram", result:"Решения на основе данных"},
+        {title:"Автоответы на отзывы", desc:"AI генерирует персонализированные ответы на отзывы покупателей на Ozon", result:"Рейтинг 4.9+"},
+        {title:"Управление рекламой", desc:"Автоматическая оптимизация рекламных кампаний на Ozon — ставки, бюджеты, ключевые слова", result:"ДРР снижается на 30-40%"}
+      ]},
+      wildberries: { name:"Wildberries", color:"#9400D3", cases:[
+        {title:"Репрайсер цен", desc:"Автоматическое управление ценами с учётом скидок WB, цен конкурентов и вашей маржи", result:"Всегда в топе выдачи"},
+        {title:"Контроль остатков", desc:"Автоматическое уведомление о критических остатках, формирование заявок на поставку и синхронизация с 1С", result:"Никогда нет out of stock"},
+        {title:"Ответы на вопросы", desc:"AI отвечает на вопросы покупателей и отзывы на WB — быстро, персонализированно", result:"Конверсия +20%"},
+        {title:"Аналитика и отчёты", desc:"Автоматический сбор аналитики WB — продажи, возвраты, реклама, позиции в поиске", result:"Полная картина бизнеса"},
+        {title:"SEO карточек", desc:"AI анализирует поисковые запросы и оптимизирует названия, описания и характеристики", result:"+40-60% трафика"}
+      ]},
+      market: { name:"Я.Маркет", color:"#FFCC00", cases:[
+        {title:"Синхронизация каталога", desc:"Автоматическое обновление цен, остатков и описаний товаров из вашей системы учёта", result:"Актуальный каталог"},
+        {title:"Управление отзывами", desc:"AI мониторит и отвечает на отзывы. Негатив — мгновенный алерт владельцу", result:"Репутация под контролем"},
+        {title:"Аналитика конкурентов", desc:"Ежедневный мониторинг цен конкурентов с отчётом и рекомендациями", result:"Всегда конкурентное предложение"},
+        {title:"Оптимизация рекламы", desc:"Автоматическая корректировка ставок и бюджетов на основе конверсии", result:"Снижение цены заказа на 25-35%"}
+      ]},
+      email: { name:"Email", color:"#EA4335", cases:[
+        {title:"Авто-цепочки писем", desc:"Серии триггерных писем по действиям — зарегистрировался, купил, бросил корзину", result:"+25% возвращаемость"},
+        {title:"Персонализированные рассылки", desc:"AI сегментирует базу и генерирует персональный контент для каждого сегмента", result:"Open rate 35-45%"},
+        {title:"Парсинг баз", desc:"Автоматический сбор email-адресов потенциальных клиентов из открытых источников", result:"1000+ контактов за день"},
+        {title:"Холодные рассылки B2B", desc:"Автоматизированные холодные письма с персонализацией под каждую компанию", result:"Конверсия 4-8%"},
+        {title:"Интеграция с CRM", desc:"Все действия с письмами фиксируются в CRM — открыл, кликнул, ответил", result:"Продажи по интересу"}
+      ]},
+      cloud: { name:"Облако", color:"#4285F4", cases:[
+        {title:"Авто-бэкапы", desc:"Ежедневное автоматическое резервное копирование всех данных бизнеса в облако", result:"Данные защищены"},
+        {title:"Google Sheets как БД", desc:"Автоматическое заполнение и обработка данных из всех источников", result:"Единая база данных"},
+        {title:"Автоматизация Workspace", desc:"Автоматическое создание документов, писем, таблиц по шаблонам", result:"-70% времени на документы"},
+        {title:"Синхронизация хранилищ", desc:"Автоматическая синхронизация файлов между Google Drive, Яндекс Диском", result:"Все файлы актуальны"}
+      ]},
+      crm: { name:"CRM", color:"#7C3AED", cases:[
+        {title:"Авто-заполнение CRM", desc:"Заявки с сайта, соцсетей, маркетплейсов автоматически создают сделки", result:"0 ручного ввода"},
+        {title:"Авто-задачи менеджерам", desc:"По каждому этапу сделки система создаёт задачи и напоминает менеджеру", result:"Ни одна сделка не зависает"},
+        {title:"AI-скоринг лидов", desc:"ИИ оценивает вероятность покупки и расставляет приоритеты для менеджеров", result:"Работают с горячими"},
+        {title:"Авто-отчёты", desc:"Ежедневные, еженедельные отчёты по продажам автоматически руководителю", result:"Полная прозрачность"}
+      ]},
+      api: { name:"Любой API", color:"#10B981", cases:[
+        {title:"Интеграция систем", desc:"Подключаем любые сервисы между собой через API", result:"Все системы работают вместе"},
+        {title:"1С интеграции", desc:"Двусторонняя синхронизация 1С с сайтом, CRM, маркетплейсами", result:"1С как центр бизнеса"},
+        {title:"Платёжные системы", desc:"Интеграция ЮКасса, Тинькофф, Сбербанк, Stripe — авто-чеки, уведомления", result:"Платежи автоматически"},
+        {title:"Кастомные решения", desc:"Если готового решения нет — разработаем коннектор для любых систем", result:"Нет невозможного"}
+      ]}
+    };
+
+    function openPlatformModal(key) {
+      const data = platformsData[key];
+      if (!data) return;
+      document.getElementById('modalTitle').textContent = data.name;
+      const iconEl = document.getElementById('modalIcon');
+      iconEl.style.background = data.color + '22';
+      iconEl.innerHTML = '<div style="color:'+data.color+'; font-weight:900; font-size:0.85rem; font-family:\'Space Grotesk\'">' + data.name.substring(0,3).toUpperCase() + '</div>';
+      const casesEl = document.getElementById('modalCases');
+      casesEl.innerHTML = data.cases.map((c, i) => '<div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:1.25rem; transition:border-color 0.3s ease;" onmouseover="this.style.borderColor=\''+data.color+'44\'" onmouseout="this.style.borderColor=\'rgba(255,255,255,0.08)\'"><div style="display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; margin-bottom:0.5rem;"><h4 style="color:white; font-family:\'Space Grotesk\',sans-serif; font-size:0.95rem; font-weight:600; margin:0;">'+(i+1)+'. '+c.title+'</h4><span style="background:'+data.color+'22; color:'+data.color+'; padding:0.2rem 0.6rem; border-radius:20px; font-size:0.7rem; white-space:nowrap; font-weight:600; flex-shrink:0;">✓ '+c.result+'</span></div><p style="color:var(--text-secondary); font-size:0.85rem; line-height:1.6; margin:0;">'+c.desc+'</p></div>').join('');
+      const modal = document.getElementById('platformModal');
+      const content = document.getElementById('platformModalContent');
+      modal.style.display = 'flex';
+      requestAnimationFrame(() => { content.style.transform = 'scale(1)'; content.style.opacity = '1'; });
+      document.body.style.overflow = 'hidden';
+    }
+    function closePlatformModal() {
+      const modal = document.getElementById('platformModal');
+      const content = document.getElementById('platformModalContent');
+      content.style.transform = 'scale(0.9)';
+      content.style.opacity = '0';
+      setTimeout(() => { modal.style.display = 'none'; document.body.style.overflow = ''; }, 300);
+    }
+    document.getElementById('closeModal').addEventListener('click', closePlatformModal);
+    document.getElementById('platformOverlay').addEventListener('click', closePlatformModal);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePlatformModal(); });
+  </script>
+</body>
+</html>

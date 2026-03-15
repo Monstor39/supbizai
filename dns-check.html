@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DNS Check — SupBizAI</title>
+  <style>
+    body {
+      font-family: monospace;
+      background: #0A0A0F;
+      color: #fff;
+      padding: 40px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    h1 { color: #7C3AED; }
+    .ok { color: #10B981; }
+    .error { color: #EF4444; }
+    .warn { color: #F59E0B; }
+    pre { background: #181820; padding: 20px; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <h1>🔍 Проверка DNS — SupBizAI</h1>
+  <p>Откройте консоль браузера (F12) для просмотра результатов</p>
+  
+  <h2>Результаты:</h2>
+  <pre id="results">Проверка...</pre>
+
+  <script>
+    const results = document.getElementById('results');
+    const output = [];
+
+    async function checkDNS() {
+      output.push('=== ПРОВЕРКА DNS ===\n');
+      
+      // Проверка основного домена
+      try {
+        const response = await fetch('https://dns.google/resolve?name=supbiz.ru&type=A', {
+          mode: 'cors'
+        });
+        const data = await response.json();
+        output.push(`supbizai.ru A записи: ${JSON.stringify(data.Answer, null, 2)}`);
+      } catch (e) {
+        output.push(`supbizai.ru: Ошибка проверки - ${e.message}`);
+      }
+
+      // Проверка www
+      try {
+        const responseWWW = await fetch('https://dns.google/resolve?name=www.supbizai.ru&type=CNAME', {
+          mode: 'cors'
+        });
+        const dataWWW = await responseWWW.json();
+        output.push(`\nwww.supbizai.ru CNAME: ${JSON.stringify(dataWWW.Answer, null, 2)}`);
+      } catch (e) {
+        output.push(`www.supbizai.ru: Ошибка проверки - ${e.message}`);
+      }
+
+      // Проверка доступности сайта
+      output.push('\n=== ПРОВЕРКА ДОСТУПНОСТИ ===');
+      output.push(`supbizai.ru: ${window.location.hostname}`);
+      output.push(`User Agent: ${navigator.userAgent}`);
+      
+      results.textContent = output.join('\n');
+    }
+
+    checkDNS();
+  </script>
+</body>
+</html>
